@@ -1,0 +1,16 @@
+.req::after{
+    content: "*";
+    color: red;
+    font-weight: bold;
+}
+.form-control, .btn, .alert{
+    border-radius: 0 !important;
+}
+.alert-success{
+    background-color: #7ab541 !important;
+    color: #fff;
+}
+.alert-danger{
+    background-color: red !important;
+    color: #fff;
+}

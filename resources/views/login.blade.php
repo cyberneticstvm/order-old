@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Bootstrap 5 admin template and web Application ui kit.">
-    <meta name="keyword" content="ALUI, Bootstrap 5, ReactJs, Angular, Laravel, VueJs, ASP .Net, Admin Dashboard, Admin Theme">
+    <meta name="description" content="Devi Eye Hospital - Order Management System">
+    <meta name="keyword" content="Devi Eye Hospital - Order Management System">
     <title>Devi Eye Hospital - Login</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
@@ -31,50 +32,54 @@
                     <div class="col-lg-6 d-flex justify-content-center align-items-center border-0 rounded-lg auth-h100">
                         <div class="w-100 p-4 p-md-5 card border-0" style="max-width: 32rem;">
                             <!-- Form -->
-                            <form class="row g-1 p-0 p-md-4">
+                            <form class="row g-1 p-0 p-md-4" method="post" action="{{ route('login') }}">
+                                @csrf
                                 <div class="col-12 text-center mb-5">
                                     <h1>Sign in</h1>
-                                    <span>Free access to our dashboard.</span>
+                                    <span>Devi Eye Hospitals - Order Management System.</span>
                                 </div>
-                                <div class="col-12 text-center mb-4">
-                                    <a class="btn btn-lg btn-outline-secondary btn-block" href="#">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                            <img class="avatar xs me-2" src="../../../assets/images/google.svg" alt="Image Description">
-                                            Sign in with Google
-                                        </span>
-                                    </a>
-                                    <span class="dividers text-muted mt-4">OR</span>
-                                </div>
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
+                                @if(session()->has('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session()->get('error') }}
+                                    </div>
+                                @endif
                                 <div class="col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Email address</label>
-                                        <input type="email" class="form-control form-control-lg" placeholder="name@example.com">
+                                        <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com">
                                     </div>
+                                    @error('email')
+                                        <small class="text-danger">{{ $errors->first('email') }}</small>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-2">
                                         <div class="form-label">
                                             <span class="d-flex justify-content-between align-items-center">
                                                 Password
-                                                <a class="text-primary" href="auth-password-reset.html">Forgot Password?</a>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control form-control-lg" placeholder="***************">
+                                        <input type="password" class="form-control" name="password" placeholder="***************">
                                     </div>
+                                    @error('password')
+                                        <small class="text-danger">{{ $errors->first('password') }}</small>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" name="remember" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Remember me
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-12 text-center mt-4">
-                                    <button type="submit" class="btn btn-lg btn-block btn-dark lift text-uppercase">SIGN IN</button>
-                                </div>
-                                <div class="col-12 text-center mt-4">
-                                    <span class="text-muted">Don't have an account yet? <a href="auth-signup.html">Sign up here</a></span>
+                                    <button type="submit" class="btn btn-submit btn-block btn-primary lift text-uppercase">SIGN IN</button>
                                 </div>
                             </form>
                             <!-- End Form -->
@@ -94,6 +99,23 @@
 
 <!-- Jquery Page Js -->
 <script src="{{ asset('assets/js/template.js') }}"></script>
+<script>
+    $(function(){
+        "use strict"
+        $('form').submit(function(){
+            $(".btn-submit").attr("disabled", true);
+            $(".btn-submit").html("<span class='spinner-grow spinner-grow-sm' role='status' aria-hidden='true'></span>");
+        });
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+    setTimeout(function () {
+        $(".alert").hide('slow');
+    }, 3000);
+</script>
 </body>
 </html>
