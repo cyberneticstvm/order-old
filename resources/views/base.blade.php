@@ -104,7 +104,7 @@
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
-                        <li><a class="ms-link" href="/dash">Branch Management</a></li>
+                        <li><a class="ms-link" href="/branch">Branch Management</a></li>
                         <li><a class="ms-link" href="/dash">Income & Expense Heads</a></li>
                         <li><a class="ms-link" href="/dash">Income Management</a></li>
                         <li><a class="ms-link" href="/dash">Expense Management</a></li>

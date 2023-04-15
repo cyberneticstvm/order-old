@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
 
@@ -54,4 +56,18 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/product/edit/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
+    Route::get('/branch', [BranchController::class, 'index'])->name('branch');
+    Route::get('/branch/create', [BranchController::class, 'create'])->name('branch.create');
+    Route::post('/branch/create', [BranchController::class, 'store'])->name('branch.save');
+    Route::get('/branch/edit/{id}', [BranchController::class, 'edit'])->name('branch.edit');
+    Route::put('/branch/edit/{id}', [BranchController::class, 'update'])->name('branch.update');
+    Route::delete('/branch/delete/{id}', [BranchController::class, 'destroy'])->name('branch.delete');
+
+    Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::get('/order/create', [OrderController::class, 'create'])->name('order.create');
+    Route::post('/order/create', [OrderController::class, 'store'])->name('order.save');
+    Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
+    Route::put('/order/edit/{id}', [OrderController::class, 'update'])->name('order.update');
+    Route::delete('/order/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');
 });
