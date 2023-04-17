@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\PaymentMode;
 use App\Models\Product;
 use App\Models\User;
@@ -30,8 +31,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $mrecord = []; $patient = []; $spectacle = []; $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all();
-        return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes'));
+        $mrecord = []; $patient = []; $spectacle = []; $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all(); $status = OrderStatus::all();
+        return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes', 'status'));
     }
 
     /**
@@ -60,8 +61,8 @@ class OrderController extends Controller
         if($mrecord):
             $patient = DB::connection('mysql1')->table('patient_registrations')->where('id', $mrecord->patient_id)->first();
             $spectacle = DB::connection('mysql1')->table('spectacles')->where('medical_record_id', $request->medical_record_id)->first();
-            $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all();
-            return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes'));
+            $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all(); $status = OrderStatus::all();
+            return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes', 'status'));
         else:
             return redirect()->back()->with('error', 'No records found')->withInput($request->all());
         endif;

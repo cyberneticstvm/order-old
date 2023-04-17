@@ -85,6 +85,13 @@
                                 <small class="text-danger">{{ $errors->first('expected_delivery_date') }}</small>
                                 @enderror
                             </div>
+                            <div class="col-sm-3">
+                                <label class="form-label req">Order Status</label>
+                                {!! Form::select('order_status', $status->pluck('name', 'id')->all(),  '', ['class' => 'form-control form-control-sm select2 border-0', 'placeholder' => 'OrderStatus']) !!}
+                                @error('order_status')
+                                <small class="text-danger">{{ $errors->first('order_status') }}</small>
+                                @enderror
+                            </div>
                         </div>
                         <div class="row mt-3">
                             <h5 class="text-primary mb-1">Prescription</h5>
