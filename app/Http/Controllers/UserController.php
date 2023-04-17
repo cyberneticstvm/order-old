@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -21,13 +22,22 @@ class UserController extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])):
             $user = Auth::getProvider()->retrieveByCredentials($credentials);
             Auth::login($user, $request->get('remember'));
-            return redirect()->route('dash')->with("success", "Logged in successfully!");
+            $branches = Branch::all();
+            return redirect()->route('dash')->with(['branches' => $branches, 'success' => 'User signed in successfully.']);
         endif;  
         return redirect("/")->with('error', 'Login details are not valid')->withInput($request->all());
     }
 
     public function dash(){
         return view(Auth::user()->usertype->dash);
+    }
+
+    public function store_branch_session(Request $request){
+        $this->validate($request, [
+            'branch' => 'required',
+        ]);
+        $request->session()->put('branch', $request->branch);     
+        return redirect()->route('dash')->with(['success' => 'Branch updated successfully']);
     }
 
     public function logout(){

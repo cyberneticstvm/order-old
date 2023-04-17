@@ -6,7 +6,7 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 <h1 class="fs-4 mt-1 mb-0">Welcome back, {{ Auth::user()->name }}!</h1>
-                <small class="text-muted">Admin Dashboard.</small>
+                <small class="text-muted">You're logged in <strong class="text-primary">{{ getCurrentBranch()->name }}</strong> Branch.</small>
             </div>
             <!--<div class="col d-flex justify-content-lg-end mt-2 mt-md-0">
                 <div class="p-2 me-md-3">

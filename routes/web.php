@@ -27,6 +27,9 @@ Route::post('/', [UserController::class, 'login'])->name('login');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['web', 'auth']], function(){
+
+    Route::post('store_branch_session', [UserController::class, 'store_branch_session'])->name('store_branch_session');
+
     Route::get('/dash', [UserController::class, 'dash'])->name('dash');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
@@ -65,6 +68,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::delete('/branch/delete/{id}', [BranchController::class, 'destroy'])->name('branch.delete');
 
     Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::post('/order', [OrderController::class, 'show'])->name('order.show');
     Route::get('/order/create', [OrderController::class, 'create'])->name('order.create');
     Route::post('/order/create', [OrderController::class, 'store'])->name('order.save');
     Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');

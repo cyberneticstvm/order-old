@@ -87,7 +87,7 @@
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Pages">
-                        <li><a class="ms-link" href="/dash">Order</a></li>
+                        <li><a class="ms-link" href="/order">Order</a></li>
                         <li><a class="ms-link" href="/dash">Return</a></li>
                     </ul>
                 </li>
@@ -323,7 +323,40 @@
             </div>
         </div>
     </div>
-
+    <input type="hidden" id="branch_selector" value="{{ Session::get('branch') }}">
+        <div class="modal fade branchSelector" id="staticBackdropLive" data-backdrop="static" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form method="post" action="{{ route('store_branch_session') }}">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLiveLabel">Branch Selector</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-sm-12">
+                                <label class="form-label">Select Branch<sup class="text-danger">*</sup></label>
+                                <select class="form-control form-control-md show-tick ms" name="branch">
+                                <option value="">Select</option>
+                                    @if(session()->has('branches'))
+                                        @php $branches = Session::get('branches'); @endphp
+                                        @foreach($branches as $br)
+                                            <option value="{{ $br->id }}" {{ old('branch') == $br->id ? 'selected' : '' }}>{{ $br->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @error('branch')
+                                <small class="text-danger">{{ $errors->first('branch') }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/logout" class="btn btn-danger">Cancel</a>
+                            <button type="submit" class="btn btn-submit btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </div>
 
 <!-- Jquery Core Js -->
