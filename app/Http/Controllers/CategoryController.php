@@ -38,8 +38,6 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories,name',
-            'hsn' => 'required|unique:categories,hsn',
-            'tax_percentage' => 'required',
         ]);
         $input = $request->all();
         Category::create($input);
@@ -80,8 +78,6 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories,name,'.$id,
-            'hsn' => 'required|unique:categories,hsn,'.$id,
-            'tax_percentage' => 'required',
         ]);
         $input = $request->all();
         $category = Category::find($id);

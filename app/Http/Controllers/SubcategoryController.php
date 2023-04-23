@@ -42,6 +42,8 @@ class SubcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'category_id' => 'required',
+            'hsn' => 'required',
+            'tax_percentage' => 'required',
         ]);
         $input = $request->all();
         try{
@@ -87,6 +89,8 @@ class SubcategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'hsn' => 'required',
+            'tax_percentage' => 'required',
             'category_id' => 'required',
         ]);
         $input = $request->all();
