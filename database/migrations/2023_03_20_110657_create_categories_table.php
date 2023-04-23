@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
-            $table->string('hsn', 25)->unique();
-            $table->decimal('tax_percentage', 5, 2)->default(0);
+            $table->string('name', 50)->unique();            
             $table->text('description')->nullable();
             $table->timestamps();
         });

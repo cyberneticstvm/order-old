@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PaymentMode;
@@ -31,8 +32,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $mrecord = []; $patient = []; $spectacle = []; $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all(); $status = OrderStatus::all();
-        return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes', 'status'));
+        $mrecord = []; $patient = []; $spectacle = []; $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all(); $status = OrderStatus::all(); $categories = Category::all();
+        return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes', 'status', 'categories'));
     }
 
     /**
@@ -43,7 +44,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'order_date' => 'required|date_format:Y-m-d',
+            'patient_name' => 'required',
+            'age' => 'required',
+            'gender' => 'required',
+            'address' => 'required',
+            'mobile' => 'required|digits:10',
+            'expected_delivery_date' => 'required|date_format:Y-m-d',
+            'product_advisor' => 'required',
+            'order_status' => 'required',
+        ]);
     }
 
     /**
@@ -62,7 +73,8 @@ class OrderController extends Controller
             $patient = DB::connection('mysql1')->table('patient_registrations')->where('id', $mrecord->patient_id)->first();
             $spectacle = DB::connection('mysql1')->table('spectacles')->where('medical_record_id', $request->medical_record_id)->first();
             $products = Product::all(); $users = User::all(); $pmodes = PaymentMode::all(); $status = OrderStatus::all();
-            return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes', 'status'));
+            $categories = Category::all();
+            return view('order.create', compact('mrecord', 'patient', 'spectacle', 'products', 'users', 'pmodes', 'status', 'categories'));
         else:
             return redirect()->back()->with('error', 'No records found')->withInput($request->all());
         endif;

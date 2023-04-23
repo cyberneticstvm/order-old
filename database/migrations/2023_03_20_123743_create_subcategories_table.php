@@ -18,6 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->unsignedBigInteger('category_id');
+            $table->string('hsn', 25)->nullable();
+            $table->decimal('tax_percentage', 5, 2)->default(0);
             $table->text('description')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unique(['name', 'category_id']);

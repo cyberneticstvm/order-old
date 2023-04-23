@@ -28,21 +28,7 @@
                                 @error('name')
                                 <small class="text-danger">{{ $errors->first('name') }}</small>
                                 @enderror
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="form-label req">HSN</label>
-                                <input type="text" value="{{ old('hsn') }}" name="hsn" class="form-control form-control-md" placeholder="HSN">
-                                @error('hsn')
-                                <small class="text-danger">{{ $errors->first('hsn') }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-sm-2">
-                                <label class="form-label req">Tax %</label>
-                                <input type="number" value="{{ old('tax_percentage') }}" name="tax_percentage" class="form-control form-control-md" placeholder="0.00 %">
-                                @error('tax_percentage')
-                                <small class="text-danger">{{ $errors->first('tax_percentage') }}</small>
-                                @enderror
-                            </div>
+                            </div>                            
                             <div class="col-sm-4">
                                 <label class="form-label">Description</label>
                                 <input type="text" value="{{ old('description') }}" name="description" class="form-control form-control-md" placeholder="Description">

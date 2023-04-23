@@ -21,15 +21,13 @@
                     <p class= "text-end my-3"><a href="/category/create/"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
-                        <thead><tr><th>SL No</th><th>Category Name</th><th>HSN</th><th>Tax %</th><th>Description</th><th>Edit</th><th>Delete</th></tr></thead>
+                        <thead><tr><th>SL No</th><th>Category Name</th><th>Description</th><th>Edit</th><th>Delete</th></tr></thead>
                         <tbody>
                             @php $c = 1; @endphp
                             @forelse($categories as $key => $category)
                             <tr>
                                 <td>{{ $c++ }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->hsn }}</td>
-                                <td>{{ $category->tax_percentage }}</td>
+                                <td>{{ $category->name }}</td>                                
                                 <td>{{ $category->description }}</td>
                                 <td class="text-center"><a href="/category/edit/{{$category->id}}"><i class="fa fa-pencil text-warning"></i></a></td>
                                 <td class="text-center">

@@ -11,8 +11,6 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'hsn',
-        'tax_percentage',
         'description',
     ];
 

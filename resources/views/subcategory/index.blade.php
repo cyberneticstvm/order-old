@@ -21,7 +21,7 @@
                     <p class= "text-end my-3"><a href="/subcategory/create/"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
-                        <thead><tr><th>SL No</th><th>Subcategory Name</th><th>Category Name</th><th>Description</th><th>Edit</th><th>Delete</th></tr></thead>
+                        <thead><tr><th>SL No</th><th>Subcategory Name</th><th>Category Name</th><th>HSN</th><th>Tax %</th><th>Description</th><th>Edit</th><th>Delete</th></tr></thead>
                         <tbody>
                             @php $c = 1; @endphp
                             @forelse($subcategories as $key => $subcategory)
@@ -29,6 +29,8 @@
                                 <td>{{ $c++ }}</td>
                                 <td>{{ $subcategory->name }}</td>
                                 <td>{{ $subcategory->category->name }}</td>
+                                <td>{{ $subcategory->hsn }}</td>
+                                <td>{{ $subcategory->tax_percentage }}</td>
                                 <td>{{ $subcategory->description }}</td>
                                 <td class="text-center"><a href="/subcategory/edit/{{$subcategory->id}}"><i class="fa fa-pencil text-warning"></i></a></td>
                                 <td class="text-center">

@@ -4,6 +4,7 @@ use App\Http\Controllers\BranchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HelperController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
@@ -31,6 +32,8 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::post('store_branch_session', [UserController::class, 'store_branch_session'])->name('store_branch_session');
 
     Route::get('/dash', [UserController::class, 'dash'])->name('dash');
+
+    Route::get('/helper/createddl/{category}', [HelperController::class, 'createddl'])->name('createddl');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
