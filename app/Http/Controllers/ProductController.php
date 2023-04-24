@@ -43,6 +43,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'mrp' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'status' => 'required',
@@ -92,6 +93,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'mrp' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'status' => 'required',

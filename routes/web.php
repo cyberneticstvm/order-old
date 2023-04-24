@@ -34,6 +34,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/dash', [UserController::class, 'dash'])->name('dash');
 
     Route::get('/helper/createddl/{category}', [HelperController::class, 'createddl'])->name('createddl');
+    Route::get('/helper/getProductPrice', [HelperController::class, 'getProductPrice'])->name('getProductPrice');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
@@ -72,8 +73,9 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 
     Route::get('/order', [OrderController::class, 'index'])->name('order');
     Route::post('/order', [OrderController::class, 'show'])->name('order.show');
-    Route::get('/order/create', [OrderController::class, 'create'])->name('order.create');
-    Route::post('/order/create', [OrderController::class, 'store'])->name('order.save');
+    Route::get('/order/fetch', [OrderController::class, 'fetch'])->name('order.fetch');
+    Route::get('/order/create/{id}', [OrderController::class, 'create'])->name('order.create');
+    Route::post('/order/create/{id}', [OrderController::class, 'store'])->name('order.save');
     Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
     Route::put('/order/edit/{id}', [OrderController::class, 'update'])->name('order.update');
     Route::delete('/order/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');

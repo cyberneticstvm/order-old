@@ -37,15 +37,18 @@
             </div>
             <div class="card mb-2">
                 <div class="card-body p-4">
-                    <p class= "text-end my-3"><a href="/order/create"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
+                    <p class= "text-end my-3"><a href="/order/create/0"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
-                        <thead><tr><th>SL No</th><th>Edit</th><th>Delete</th></tr></thead>
+                        <thead><tr><th>SL No</th><th>Order Number</th><th>Customer Name</th><th>Contact</th><th>Edit</th><th>Delete</th></tr></thead>
                         <tbody>
                             @php $c = 1; @endphp
                             @forelse($orders as $key => $order)
                             <tr>
                                 <td>{{ $c++ }}</td>
+                                <td>{{ $order->order_number }}</td>
+                                <td>{{ $order->patient_name }}</td>
+                                <td>{{ $order->mobile }}</td>
                                 <td class="text-center"><a href="/order/edit/{{$order->id}}"><i class="fa fa-pencil text-warning"></i></a></td>
                                 <td class="text-center">
                                     <form method="post" action="{{ route('order.delete', $order->id) }}">

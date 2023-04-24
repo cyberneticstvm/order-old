@@ -19,7 +19,7 @@
             <div class="card mb-2">
                 <div class="card-body p-4">
                     @include("sections.message")
-                    <form action="{{ route('order.create') }}" method="post">
+                    <form action="{{ route('order.create', ($mrecord) ? $mrecord->id : 0) }}" method="post">
                         @csrf
                         <input type="hidden" name="doctor_id" value="{{ ($mrecord) ? $mrecord->doctor_id : 0 }}" />
                         <input type="hidden" name="patient_id" value="{{ ($patient) ? $patient->id : 0 }}" />
@@ -54,21 +54,28 @@
                             </div>
                             <div class="col-sm-2">
                                 <label class="form-label req">Gender</label>
-                                <select class="form-control">
+                                <select class="form-control" name="gender">
                                     <option value="">Select</option>
                                     <option value="male" {{ ($patient && $patient->gender == 'male') ? 'selected' : '' }}>Male</option>
                                     <option value="female" {{ ($patient && $patient->gender == 'female') ? 'selected' : '' }}>Female</option>
                                     <option value="other" {{ ($patient && $patient->gender == 'other') ? 'selected' : '' }}>Other</option>
                                 </select>
-                                @error('age')
-                                <small class="text-danger">{{ $errors->first('age') }}</small>
+                                @error('gender')
+                                <small class="text-danger">{{ $errors->first('gender') }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-3">
                                 <label class="form-label req">Mobile</label>
                                 <input type="text" value="{{ ($patient) ? $patient->mobile_number : '' }}" name="mobile" class="form-control form-control-md" maxlength="10" placeholder="Mobile">
-                                @error('age')
-                                <small class="text-danger">{{ $errors->first('age') }}</small>
+                                @error('mobile')
+                                <small class="text-danger">{{ $errors->first('mobile') }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label req">Address</label>
+                                <input type="text" value="{{ ($patient) ? $patient->address : '' }}" name="address" class="form-control form-control-md" placeholder="Address" />
+                                @error('address')
+                                <small class="text-danger">{{ $errors->first('address') }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-2">
@@ -87,14 +94,19 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="form-label req">Order Status</label>
-                                {!! Form::select('order_status', $status->pluck('name', 'id')->all(),  '', ['class' => 'form-control form-control-sm select2 border-0', 'placeholder' => 'OrderStatus']) !!}
+                                {!! Form::select('order_status', $status->pluck('name', 'id')->all(),  1, ['class' => 'form-control form-control-sm select2 border-0', 'placeholder' => 'OrderStatus']) !!}
                                 @error('order_status')
                                 <small class="text-danger">{{ $errors->first('order_status') }}</small>
                                 @enderror
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-9"><h5 class="text-primary mb-1">Prescription</h5></div>
+                            <div class="col-md-9">
+                                <h5 class="text-primary mb-1 text-center"><strong>Prescription</strong></h5>
+                                @error('product')
+                                <small class="text-danger">{{ $errors->first('product') }}</small>
+                                @enderror
+                            </div>
                             <div class="col-md-3">
                                 <label class="form-label">Add New Item</label>
                                 {!! Form::select('sel_category_for_add_item', $categories->pluck('name', 'id')->all(),  '', ['class' => 'form-control form-control-sm select2 sel_category_for_add_item', 'placeholder' => 'Category']) !!}
@@ -110,7 +122,7 @@
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Axis" name="axis[]" value="{{ ($spectacle) ? $spectacle->re_dist_axis : '' }}"></td>
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Add" name="add[]" value="{{ ($spectacle) ? $spectacle->re_dist_add : '' }}"></td>
                                             <td>
-                                                {!! Form::select('lenses[]', $products->pluck('name', 'id')->all(),  '', ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
@@ -124,7 +136,7 @@
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Axis" name="axis[]" value="{{ ($spectacle) ? $spectacle->le_dist_axis : '' }}"></td>
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Add" name="add[]" value="{{ ($spectacle) ? $spectacle->le_dist_add : '' }}"></td>
                                             <td>
-                                                {!! Form::select('lenses[]', $products->pluck('name', 'id')->all(),  '', ['class' => 'form-control select2 selLens', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
@@ -132,9 +144,12 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5"><input type="text" name="type[]" value="FRAME" class="form-control form-control-sm border-0" readonly/></td>
+                                            <td colspan="5">
+                                                <input type="text" name="type[]" value="FRAME" class="form-control form-control-sm border-0" readonly/>
+                                                <input type='hidden' name='sph[]' value='' /><input type='hidden' name='cyl[]' value='' /><input type='hidden' name='axis[]' value='' /><input type='hidden' name='add[]' value='' />
+                                            </td>
                                             <td>
-                                                {!! Form::select('frames[]', $products->pluck('name', 'id')->all(),  '', ['class' => 'form-control select2 selFrame', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selFrame', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
@@ -145,25 +160,43 @@
                                     <tfoot>
                                         <tr>
                                         <td colspan="8" class="text-end">Order Total</td>
-                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end" placeholder="0.00" name="order_total" /></td>
-                                            <td></td>
+                                            <td class="fw-bold text-end">
+                                                <input type="number" class="form-control form-control-sm border-0 text-end otot" placeholder="0.00" name="order_total" value="{{ old('order_total') }}" />
+                                            </td>
+                                            <td>
+                                            @error('order_total')
+                                            <small class="text-danger">{{ $errors->first('order_total') }}</small>
+                                            @enderror
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="8" class="text-end">Discount</td>
-                                            <td class="fw-bold"><input type="number" class="form-control form-control-sm border-0 text-end" name="discount" placeholder="0.00" /></td>
+                                            <td class="fw-bold"><input type="number" class="form-control form-control-sm border-0 text-end discount" name="discount" placeholder="0.00" value="{{ old('discount') }}" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td colspan="8" class="text-end">Net Total</td>
-                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end" name="total_after_discount" placeholder="0.00" /></td>
-                                            <td></td>
+                                            <td class="fw-bold text-end">
+                                                <input type="number" class="form-control form-control-sm border-0 text-end nettot" name="total_after_discount" placeholder="0.00" value="{{ old('total_after_discount') }}" />                                                
+                                            </td>
+                                            <td>
+                                                @error('total_after_discount')
+                                                <small class="text-danger">{{ $errors->first('total_after_discount') }}</small>
+                                                @enderror
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="7" class="text-end">Advance</td>
+                                            <td colspan="7" class="text-end">
+                                                Advance
+                                                @error('advance_payment_type')
+                                                <small class="text-danger">{{ $errors->first('advance_payment_type') }}</small>
+                                                @enderror
+                                            </td>
                                             <td>
                                                 {!! Form::select('advance_payment_type', $pmodes->pluck('name', 'id')->all(),  '', ['class' => 'form-control select2', 'placeholder' => 'PaymentMode']) !!}
+                                                
                                             </td>
-                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end" name="advance" placeholder="0.00" /></td>
+                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end advance" name="advance" placeholder="0.00" value="{{ old('advance') }}" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -171,7 +204,7 @@
                                             <td>
                                                 {!! Form::select('balance_payment_type', $pmodes->pluck('name', 'id')->all(),  '', ['class' => 'form-control select2', 'placeholder' => 'PaymentMode']) !!}
                                             </td>
-                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end" name="balance" placeholder="0.00" /></td>
+                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end balance" name="balance" placeholder="0.00" value="{{ old('balance') }}" /></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>

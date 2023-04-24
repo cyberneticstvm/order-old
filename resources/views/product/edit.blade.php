@@ -61,6 +61,13 @@
                                 <input type="number" name="discount_percentage" value="{{ $product->discount_percentage }}" class="form-control" min="0" max="100" step="any" placeholder="0.0 %">
                             </div>
                             <div class="col-sm-2">
+                                <label class="form-label req">MRP</label>
+                                <input type="number" name="mrp" class="form-control" step="any" value="{{ $product->mrp }}" placeholder="0.0">
+                                @error('mrp')
+                                    <small class="text-danger">{{ $errors->first('mrp') }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-sm-2">
                                 <label class="form-label req">Product Status</label>
                                 <select name="status" class="form-control show-tick ms select2">
                                     <option value="">Select</option>

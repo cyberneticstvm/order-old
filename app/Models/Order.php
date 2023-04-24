@@ -37,4 +37,10 @@ class Order extends Model
         'created_by',
         'updated_by',
     ];
+
+    protected $casts = ['order_date' => 'date', 'expected_delivery_date' => 'date'];
+
+    public function orderdetails(){
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+    }
 }

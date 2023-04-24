@@ -29,7 +29,14 @@
                                 <small class="text-danger">{{ $errors->first('name') }}</small>
                                 @enderror
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-2">
+                                <label class="form-label req">Branch Code</label>
+                                <input type="text" value="{{ old('branch_code') }}" name="branch_code" maxlength="5" class="form-control form-control-md" placeholder="Branch Code">
+                                @error('branch_code')
+                                <small class="text-danger">{{ $errors->first('branch_code') }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-sm-6">
                                 <label class="form-label">Address</label>
                                 <input type="text" name="address" class="form-control" value="{{ old('address') }}" placeholder="Address">
                                 @error('address')

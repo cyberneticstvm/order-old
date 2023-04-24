@@ -40,6 +40,7 @@ class BranchController extends Controller
             'mobile' => 'required|numeric|digits:10',
             'address' => 'required',
             'name' => 'required|unique:branches,name',
+            'branch_code' => 'required|unique:branches,branch_code',
         ]);
         $input = $request->all();
         Branch::create($input);
@@ -82,6 +83,7 @@ class BranchController extends Controller
             'mobile' => 'required|numeric|digits:10',
             'address' => 'required',
             'name' => 'required|unique:branches,name,'.$id,
+            'branch_code' => 'required|unique:branches,branch_code,'.$id,
         ]);
         $input = $request->all();
         $branch = Branch::find($id);
