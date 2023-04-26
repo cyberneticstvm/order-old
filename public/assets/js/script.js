@@ -30,7 +30,7 @@ $(function(){
         var category = $(this).val();   
         $.ajax({
             type: 'GET',
-            url: '/helper/createddl/'+category
+            url: '/helper/createddlSubCat/'+category
         }).then(function (data){
             var options = "<option value=''>Select</option>";
             $.map(data, function(obj){

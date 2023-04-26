@@ -34,6 +34,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/dash', [UserController::class, 'dash'])->name('dash');
 
     Route::get('/helper/createddl/{category}', [HelperController::class, 'createddl'])->name('createddl');
+    Route::get('/helper/createddlSubCat/{category}', [HelperController::class, 'createddlSubCat'])->name('createddlSubCat');
     Route::get('/helper/getProductPrice', [HelperController::class, 'getProductPrice'])->name('getProductPrice');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');

@@ -13,6 +13,11 @@ class HelperController extends Controller
         return response()->json($data);
     }
 
+    public function createddlSubCat($category){
+        $data = DB::table('subcategories')->where('category_id', $category)->select('id', 'name')->get();
+        return response()->json($data);
+    }
+
     public function getProductPrice(Request $request){
         $product = $request->product;
         $product = Product::find($product);
