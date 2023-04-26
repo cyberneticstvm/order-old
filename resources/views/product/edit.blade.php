@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <label class="form-label req">Product Code</label>
-                                <input type="text" name="product_code" class="form-control" value="{{ $product->product_code }}" placeholder="Product Code" readonly>
+                                <input type="text" name="product_code" class="form-control" value="{{ $product->product_code }}" placeholder="Product Code">
                                 @error('product_code')
                                 <small class="text-danger">{{ $errors->first('product_code') }}</small>
                                 @enderror
