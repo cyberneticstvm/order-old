@@ -78,7 +78,7 @@
                                 <select name="status" class="form-control show-tick ms select2">
                                     <option value="">Select</option>
                                     <option value="1" selected >Active</option>
-                                    <option value="0" {{ (old('status') == 0) ? 'selected' : '' }}>Inactive</option>                                    
+                                    <option value="0">Inactive</option>                                    
                                 </select>
                                 @error('status')
                                     <small class="text-danger">{{ $errors->first('status') }}</small>
