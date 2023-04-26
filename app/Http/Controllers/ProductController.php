@@ -79,7 +79,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $categories = Category::all();
-        $subcategories = Subcategory::where('id', $product->subcategory_id)->get();
+        $subcategories = Subcategory::where('category_id', $product->category_id)->get();
         return view('product.edit', compact('categories', 'subcategories', 'product'));
     }
 
