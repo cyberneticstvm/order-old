@@ -77,9 +77,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
-        $subcategories = Subcategory::all();
         $product = Product::find($id);
+        $categories = Category::all();
+        $subcategories = Subcategory::where('id', $product->subcategory_id)->get();
         return view('product.edit', compact('categories', 'subcategories', 'product'));
     }
 

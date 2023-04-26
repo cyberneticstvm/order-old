@@ -22,12 +22,22 @@ $(function(){
     $("#dataTbl").dataTable();
 
     $('.select2').select2({
-        placeholder: 'Select'
+        placeholder: 'Select',
+        allowClear: true,
     });
 
     $(".selProdCat").change(function(){
-        var category = $(this).val();
-        bindDDL(category, 'selProdSubCat');
+        var category = $(this).val();   
+        $.ajax({
+            type: 'GET',
+            url: '/helper/createddl/'+category
+        }).then(function (data){
+            var options = "<option value=''>Select</option>";
+            $.map(data, function(obj){
+                options = options + "<option value='"+obj.id+"'>"+obj.name+"</option>";
+            });
+            $(".selProdSubCat").html(options);
+        });
     });
 
     $(".sel_category_for_add_item").change(function(){
@@ -87,6 +97,8 @@ function bindDDL(category, ddl){
             obj.text = obj.name || obj.id;  
             return obj;
         });
+        console.log(xdata)
+        $('.'+ddl).select2('val', '');
         $('.'+ddl).select2({data:xdata});
     });
 }
