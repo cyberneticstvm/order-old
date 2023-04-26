@@ -30,6 +30,13 @@
                                 <small class="text-danger">{{ $errors->first('name') }}</small>
                                 @enderror
                             </div>
+                            <div class="col-sm-2">
+                                <label class="form-label req">Product Code</label>
+                                <input type="text" name="product_code" class="form-control" value="{{ $product->product_code }}" placeholder="Product Code" readonly>
+                                @error('product_code')
+                                <small class="text-danger">{{ $errors->first('product_code') }}</small>
+                                @enderror
+                            </div>
                             <div class="col-sm-3">
                                 <label class="form-label req">Category</label>
                                 <select name="category_id" class="form-control show-tick ms select2">
@@ -58,7 +65,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <label class="form-label">Discount %</label>
-                                <input type="number" name="discount_percentage" value="{{ $product->discount_percentage }}" class="form-control" min="0" max="100" step="any" placeholder="0.0 %">
+                                <input type="number" name="discount_percentage" value="{{ $product->discount_percentage }}" class="form-control" max="100" step="any" placeholder="0.0 %">
                             </div>
                             <div class="col-sm-2">
                                 <label class="form-label req">MRP</label>

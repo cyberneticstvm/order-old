@@ -15,4 +15,9 @@ function generateOrderNumber(){
     return $br->branch_code.'/'.$ono;
 }
 
+function generateProductCode(){
+    $key = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return substr(str_shuffle($key), 0, 6);
+}
+
 ?>

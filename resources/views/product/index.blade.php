@@ -21,7 +21,7 @@
                     <p class= "text-end my-3"><a href="/product/create/"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
-                        <thead><tr><th>SL No</th><th>PID</th><th>Product Name</th><th>Category Name</th><th>Subcategory Name</th><th>Description</th><th>MRP</th><th>Edit</th><th>Delete</th></tr></thead>
+                        <thead><tr><th>SL No</th><th>PID</th><th>Product Name</th><th>Product Code</th><th>Category Name</th><th>Subcategory Name</th><th>Description</th><th>MRP</th><th>Edit</th><th>Delete</th></tr></thead>
                         <tbody>
                             @php $c = 1; @endphp
                             @forelse($products as $key => $product)
@@ -29,6 +29,7 @@
                                 <td>{{ $c++ }}</td>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
+                                <td>{{ $product->product_code }}</td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->subcategory->name }}</td>
                                 <td>{{ $product->description }}</td>

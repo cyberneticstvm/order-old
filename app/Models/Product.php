@@ -13,6 +13,7 @@ class Product extends Model
         'category_id',
         'subcategory_id',
         'name',
+        'product_code',
         'mrp',
         'description',
         'discount_percentage',
