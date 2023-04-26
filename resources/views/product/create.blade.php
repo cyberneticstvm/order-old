@@ -77,7 +77,7 @@
                                 <label class="form-label req">Product Status</label>
                                 <select name="status" class="form-control show-tick ms select2">
                                     <option value="">Select</option>
-                                    <option value="1" {{ (old('status') == 1) ? 'selected' : '' }}>Active</option>
+                                    <option value="1" selected >Active</option>
                                     <option value="0" {{ (old('status') == 0) ? 'selected' : '' }}>Inactive</option>                                    
                                 </select>
                                 @error('status')

@@ -85,7 +85,7 @@
                                     <small class="text-danger">{{ $errors->first('status') }}</small>
                                 @enderror
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 <label class="form-label">Product Description</label>
                                 <input type="text" name="description" class="form-control" value="{{ $product->description }}" placeholder="Product Description">
                             </div>
