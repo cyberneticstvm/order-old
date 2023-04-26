@@ -25,6 +25,11 @@ $(function(){
         placeholder: 'Select'
     });
 
+    $(".selProdCat").change(function(){
+        var category = $(this).val();
+        bindDDL(category, 'selProdSubCat');
+    });
+
     $(".sel_category_for_add_item").change(function(){
         var category = $(this).val();
         if(category == 1){ // Frames

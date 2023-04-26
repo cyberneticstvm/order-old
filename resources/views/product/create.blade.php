@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="form-label req">Category</label>
-                                <select name="category_id" class="form-control show-tick ms select2">
+                                <select name="category_id" class="form-control show-tick ms select2 selProdCat">
                                     <option value="">Select</option>
                                     @forelse($categories as $key => $cat)
                                         <option value="{{ $cat->id }}" {{ (old('category_id') == $cat->id) ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -51,12 +51,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="form-label req">Subcategory</label>
-                                <select name="subcategory_id" class="form-control show-tick ms select2">
-                                    <option value="">Select</option>
-                                    @forelse($subcategories as $key => $sub)
-                                        <option value="{{ $sub->id }}" {{ (old('subcategory_id') == $sub->id) ? 'selected' : '' }}>{{ $sub->name }}</option>
-                                    @empty
-                                    @endforelse
+                                <select name="subcategory_id" class="form-control show-tick ms select2 selProdSubCat">
+                                    
                                 </select>
                                 @error('subcategory_id')
                                     <small class="text-danger">{{ $errors->first('subcategory_id') }}</small>
