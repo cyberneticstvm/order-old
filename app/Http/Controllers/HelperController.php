@@ -20,7 +20,8 @@ class HelperController extends Controller
 
     public function getProductPrice(Request $request){
         $product = $request->product;
-        $product = Product::find($product);
+        $tax_per = Product::where('id', $product)->first()->subcategory->tax_percentage;
+        $product = Product::where('id', $product)->selectRaw("CAST(CASE WHEN $tax_per > 0 THEN round(mrp-((mrp*$tax_per)/100), 2) ELSE mrp END AS DECIMAL(7,2)) AS price_after_tax, $tax_per as tax_percentage, discount_percentage, mrp")->first();
         return response()->json($product);
     }
 }

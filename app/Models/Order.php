@@ -26,6 +26,8 @@ class Order extends Model
         'order_total',
         'discount',
         'total_after_discount',
+        'tax_amount',
+        'net_total',
         'advance',
         'balance',
         'advance_received_at',

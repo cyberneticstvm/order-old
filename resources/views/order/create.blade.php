@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-12 table-responsive mt-3">
                                 <table class="tblOrder table table-bordered table-sm">
-                                    <thead><tr><th>Eye</th><th>Sph</th><th>Cyl</th><th>Axis</th><th>Add</th><th width="40%">Product</th><th>Qty</th><th>Price</th><th>Total</th><th></th></tr></thead>
+                                    <thead><tr><th>Eye</th><th>Sph</th><th>Cyl</th><th>Axis</th><th>Add</th><th width="34%">Product</th><th>Qty</th><th width="7%">MRP</th><th>Tax %</th><th width="5%">Disc.%</th><th width="8%">Total</th><th></th></tr></thead>
                                     <tbody>
                                         <tr>
                                             <td><input type="text" name="type[]" value="RE" class="form-control form-control-sm border-0" readonly/></td>
@@ -124,9 +124,11 @@
                                             <td>
                                                 {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
+                                            <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" step='any' placeholder="0" /></td>
+                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
+                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" /></td>
+                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" /></td>
+                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -138,9 +140,11 @@
                                             <td>
                                                 {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" /></td>
+                                            <td><input type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" step='any' placeholder="0.00" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -151,17 +155,19 @@
                                             <td>
                                                 {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selFrame', 'placeholder' => 'Select']) !!}
                                             </td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
                                             <td></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                        <td colspan="8" class="text-end">Order Total</td>
+                                        <td colspan="10" class="text-end">Order Total</td>
                                             <td class="fw-bold text-end">
-                                                <input type="number" class="form-control form-control-sm border-0 text-end otot" placeholder="0.00" name="order_total" value="{{ old('order_total') }}" />
+                                                <input type="number" step='any' class="form-control form-control-sm border-0 text-end otot" placeholder="0.00" name="order_total" value="{{ old('order_total') }}" />
                                             </td>
                                             <td>
                                             @error('order_total')
@@ -170,14 +176,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="8" class="text-end">Discount</td>
-                                            <td class="fw-bold"><input type="number" class="form-control form-control-sm border-0 text-end discount" name="discount" placeholder="0.00" value="{{ old('discount') }}" /></td>
+                                            <td colspan="10" class="text-end">Discount</td>
+                                            <td class="fw-bold"><input type="number" step='any' class="form-control form-control-sm border-0 text-end discount" name="discount" placeholder="0.00" value="{{ old('discount') }}" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="8" class="text-end">Net Total</td>
+                                            <td colspan="10" class="text-end">Total After Discount</td>
                                             <td class="fw-bold text-end">
-                                                <input type="number" class="form-control form-control-sm border-0 text-end nettot" name="total_after_discount" placeholder="0.00" value="{{ old('total_after_discount') }}" />                                                
+                                                <input type="number" class="form-control form-control-sm border-0 text-end nettot" name="total_after_discount" step='any' placeholder="0.00" value="{{ old('total_after_discount') }}" />                                                
                                             </td>
                                             <td>
                                                 @error('total_after_discount')
@@ -186,7 +192,29 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="7" class="text-end">
+                                            <td colspan="10" class="text-end">Tax Amount</td>
+                                            <td class="fw-bold text-end">
+                                                <input type="number" step='any' class="form-control form-control-sm border-0 text-end tax" name="tax_amount" placeholder="0.00" value="{{ old('tax') }}" />                                                
+                                            </td>
+                                            <td>
+                                                @error('tax_amount')
+                                                <small class="text-danger">{{ $errors->first('tax_amount') }}</small>
+                                                @enderror
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" class="text-end fw-bold">Net Total</td>
+                                            <td class="fw-bold text-end">
+                                                <input type="number" step='any' class="form-control form-control-sm border-0 text-end amount_due fw-bold" name="net_total" placeholder="0.00" value="{{ old('net_total') }}" />                                                
+                                            </td>
+                                            <td>
+                                                @error('net_total')
+                                                <small class="text-danger">{{ $errors->first('net_total') }}</small>
+                                                @enderror
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="9" class="text-end">
                                                 Advance
                                                 @error('advance_payment_type')
                                                 <small class="text-danger">{{ $errors->first('advance_payment_type') }}</small>
@@ -196,15 +224,15 @@
                                                 {!! Form::select('advance_payment_type', $pmodes->pluck('name', 'id')->all(),  '', ['class' => 'form-control select2', 'placeholder' => 'PaymentMode']) !!}
                                                 
                                             </td>
-                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end advance" name="advance" placeholder="0.00" value="{{ old('advance') }}" /></td>
+                                            <td class="fw-bold text-end"><input type="number" step='any' class="form-control form-control-sm border-0 text-end advance" name="advance" placeholder="0.00" value="{{ old('advance') }}" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="7" class="text-end">Balance</td>
+                                            <td colspan="9" class="text-end">Balance</td>
                                             <td>
                                                 {!! Form::select('balance_payment_type', $pmodes->pluck('name', 'id')->all(),  '', ['class' => 'form-control select2', 'placeholder' => 'PaymentMode']) !!}
                                             </td>
-                                            <td class="fw-bold text-end"><input type="number" class="form-control form-control-sm border-0 text-end balance" name="balance" placeholder="0.00" value="{{ old('balance') }}" /></td>
+                                            <td class="fw-bold text-end"><input type="number" step='any' class="form-control form-control-sm border-0 text-end balance" name="balance" placeholder="0.00" value="{{ old('balance') }}" /></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>

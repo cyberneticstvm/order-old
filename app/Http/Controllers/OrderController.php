@@ -67,6 +67,8 @@ class OrderController extends Controller
             'order_status' => 'required',
             'order_total' => 'required',
             'total_after_discount' => 'required',
+            'tax_amount' => 'required',
+            'net_total' => 'required',
             'product' => 'present|array',
         ]);        
         $input = $request->all();
@@ -81,6 +83,8 @@ class OrderController extends Controller
                 $data = []; $order = Order::create($input);
                 foreach($request->product as $key => $val):
                     if($val):
+                        $disc = ($request->disc_per[$key] > 0) ? ($request->total[$key]*$request->disc_per[$key])/100 : 0;
+                        $tax = ($request->tax_per[$key] > 0) ? (($request->total[$key]-$disc)*$request->tax_per[$key])/100 : 0;
                         $data [] = [
                             'order_id' => $order->id,
                             'branch_id' => getCurrentBranch()->id,
@@ -92,10 +96,10 @@ class OrderController extends Controller
                             'product_id' => $val,
                             'qty' => $request->qty[$key],
                             'price' => $request->price[$key],
-                            'tax_percentage' => 0,
-                            'tax_amount' => 0,
-                            'discount_percentage' => 0,
-                            'discount_amount' => 0,
+                            'tax_percentage' => $request->tax_per[$key],
+                            'tax_amount' => $tax,
+                            'discount_percentage' => $request->disc_per[$key],
+                            'discount_amount' => $disc,
                             'total' => $request->total[$key],
                         ];
                     endif;
@@ -166,6 +170,8 @@ class OrderController extends Controller
             'order_status' => 'required',
             'order_total' => 'required',
             'total_after_discount' => 'required',
+            'tax_amount' => 'required',
+            'net_total' => 'required',
             'product' => 'present|array',
         ]);        
         $input = $request->all(); $order = Order::find($id);
@@ -180,6 +186,8 @@ class OrderController extends Controller
                 $data = []; $order->update($input);
                 foreach($request->product as $key => $val):
                     if($val):
+                        $disc = ($request->disc_per[$key] > 0) ? ($request->total[$key]*$request->disc_per[$key])/100 : 0;
+                        $tax = ($request->tax_per[$key] > 0) ? (($request->total[$key]-$disc)*$request->tax_per[$key])/100 : 0;
                         $data [] = [
                             'order_id' => $order->id,
                             'branch_id' => getCurrentBranch()->id,
@@ -191,10 +199,10 @@ class OrderController extends Controller
                             'product_id' => $val,
                             'qty' => $request->qty[$key],
                             'price' => $request->price[$key],
-                            'tax_percentage' => 0,
-                            'tax_amount' => 0,
-                            'discount_percentage' => 0,
-                            'discount_amount' => 0,
+                            'tax_percentage' => $request->tax_per[$key],
+                            'tax_amount' => $tax,
+                            'discount_percentage' => $request->disc_per[$key],
+                            'discount_amount' => $disc,
                             'total' => $request->total[$key],
                         ];
                     endif;
