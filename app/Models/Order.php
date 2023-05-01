@@ -45,4 +45,12 @@ class Order extends Model
     public function orderdetails(){
         return $this->hasMany(OrderDetail::class, 'order_id', 'id');
     }
+
+    public function branch(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+
+    public function payments(){
+        return $this->hasMany(OrderPayment::class, 'order_id', 'id');
+    }
 }

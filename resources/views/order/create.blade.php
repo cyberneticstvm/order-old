@@ -122,7 +122,7 @@
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Axis" name="axis[]" value="{{ ($spectacle) ? $spectacle->re_dist_axis : '' }}"></td>
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Add" name="add[]" value="{{ ($spectacle) ? $spectacle->re_dist_add : '' }}"></td>
                                             <td>
-                                                {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->whereIn('category_id', [2,3])->pluck('name', 'id')->all(), 0, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" step='any' placeholder="0" /></td>
                                             <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
@@ -138,7 +138,7 @@
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Axis" name="axis[]" value="{{ ($spectacle) ? $spectacle->le_dist_axis : '' }}"></td>
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Add" name="add[]" value="{{ ($spectacle) ? $spectacle->le_dist_add : '' }}"></td>
                                             <td>
-                                                {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selLens', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->whereIn('category_id', [2,3])->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
@@ -153,7 +153,7 @@
                                                 <input type='hidden' name='sph[]' value='' /><input type='hidden' name='cyl[]' value='' /><input type='hidden' name='axis[]' value='' /><input type='hidden' name='add[]' value='' />
                                             </td>
                                             <td>
-                                                {!! Form::select('product[]', $products->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selFrame', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->whereIn('category_id', [1])->pluck('name', 'id')->all(), 0, ['class' => 'form-control select2 selFrame', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>

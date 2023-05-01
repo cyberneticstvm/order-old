@@ -5,8 +5,8 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-auto">
-                <h1 class="fs-4 mt-1 mb-0">Order Register</h1>
-                <small class="text-muted">Order / Order Register</small>
+                <h1 class="fs-4 mt-1 mb-0">Order Payment Register</h1>
+                <small class="text-muted">Order / Order Payment Register</small>
             </div>
         </div>
     </div>
@@ -17,14 +17,14 @@
         <div class="row g-3 clearfix">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('order.show') }}" method="post">
+                    <form action="{{ route('order.payment.fetch') }}" method="post">
                         @csrf
                         <div class="row g-4">
                             <div class="col-sm-3">
-                                <label class="form-label">Medical Record ID (MR.ID)<sup class="text-danger">*</sup></label>
-                                <input type="number" value="{{ old('medical_record_id') }}" name="medical_record_id" class="form-control form-control-md" placeholder="Mediical Record ID">
-                                @error('medical_record_id')
-                                <small class="text-danger">{{ $errors->first('medical_record_id') }}</small>
+                                <label class="form-label">Order Number<sup class="text-danger">*</sup></label>
+                                <input type="text" value="{{ old('order_number') }}" name="order_number" class="form-control form-control-md" placeholder="Order Number">
+                                @error('order_number')
+                                <small class="text-danger">{{ $errors->first('order_number') }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-2">
@@ -37,22 +37,22 @@
             </div>
             <div class="card mb-2">
                 <div class="card-body p-4">
-                    <p class= "text-end my-3"><a href="/order/create/0"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
-                        <thead><tr><th>SL No</th><th>Order Number</th><th>Customer Name</th><th>Contact</th><th>Bill</th><th>Edit</th><th>Delete</th></tr></thead>
+                        <thead><tr><th>SL No</th><th>Order Number</th><th>Customer Name</th><th>Contact</th><th>Payment Mode</th><th>Amount</th><th>Notes</th><th>Delete</th></tr></thead>
                         <tbody>
                             @php $c = 1; @endphp
-                            @forelse($orders as $key => $order)
+                            @forelse($payments as $key => $pay)
                             <tr>
                                 <td>{{ $c++ }}</td>
-                                <td>{{ $order->order_number }}</td>
-                                <td>{{ $order->patient_name }}</td>
-                                <td>{{ $order->mobile }}</td>
-                                <td class="text-center"><a target="_blank" href="/pdf/order-bill/{{ $order->id }}"><i class="fa fa-file-pdf-o text-danger"></i></a></td>
-                                <td class="text-center"><a href="/order/edit/{{$order->id}}"><i class="fa fa-pencil text-warning"></i></a></td>
+                                <td>{{ $pay->order->order_number }}</td>
+                                <td>{{ $pay->order->patient_name }}</td>
+                                <td>{{ $pay->order->mobile }}</td>
+                                <td>{{ $pay->pmode->name }}</td>
+                                <td>{{ $pay->amount }}</td>
+                                <td>{{ $pay->notes }}</td>
                                 <td class="text-center">
-                                    <form method="post" action="{{ route('order.delete', $order->id) }}">
+                                    <form method="post" action="{{ route('order.payment.delete', $pay->id) }}">
                                         @csrf 
                                         @method("DELETE")
                                         <button type="submit" class="border no-border" onclick="javascript: return confirm('Are you sure want to delete this record?');"><i class="fa fa-trash text-danger"></i></button>

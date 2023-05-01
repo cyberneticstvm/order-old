@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\OrderPayment;
 use App\Models\OrderStatus;
 use App\Models\PaymentMode;
 use App\Models\Product;
@@ -105,6 +106,12 @@ class OrderController extends Controller
                     endif;
                 endforeach;
                 OrderDetail::insert($data);
+                $input['order_id'] = $order->id;
+                $input['payment_mode'] = $request->advance_payment_type;
+                $input['amount'] = $request->advance;
+                $input['status'] = 0;
+                $input['payment_date'] = Carbon::today();
+                OrderPayment::create($input);
             });            
         }catch(Exception $e){
             return redirect()->route('order.create', $id)->with('error', $e->getMessage())->withInput($request->all());

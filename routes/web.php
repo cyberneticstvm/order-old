@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderPaymentController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
 
@@ -36,6 +38,8 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/helper/createddl/{category}', [HelperController::class, 'createddl'])->name('createddl');
     Route::get('/helper/createddlSubCat/{category}', [HelperController::class, 'createddlSubCat'])->name('createddlSubCat');
     Route::get('/helper/getProductPrice', [HelperController::class, 'getProductPrice'])->name('getProductPrice');
+
+    Route::get('/pdf/order-bill/{id}', [PDFController::class, 'orderbill'])->name('pdf.orderbill');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
@@ -80,4 +84,11 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
     Route::put('/order/edit/{id}', [OrderController::class, 'update'])->name('order.update');
     Route::delete('/order/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');
+
+    Route::get('/order/payment', [OrderPaymentController::class, 'index'])->name('order.payment');
+    Route::post('/order/payment', [OrderPaymentController::class, 'fetch'])->name('order.payment.fetch');
+    Route::get('/order/payment/proceed', [OrderPaymentController::class, 'fetch'])->name('order.payment.proceed');
+    Route::get('/order/payment/create/{id}', [OrderPaymentController::class, 'create'])->name('order.payment.create');
+    Route::post('/order/payment/create', [OrderPaymentController::class, 'store'])->name('order.payment.save');
+    Route::delete('/order/payment/delete/{id}', [OrderController::class, 'destroy'])->name('order.payment.delete')->middleware('signed');
 });

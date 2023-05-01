@@ -87,8 +87,9 @@
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Pages">
-                        <li><a class="ms-link" href="/order">Order</a></li>
-                        <li><a class="ms-link" href="/dash">Return</a></li>
+                        <li><a class="ms-link" href="/order">Order Management</a></li>
+                        <li><a class="ms-link" href="/order/payment">Payment</a></li>
+                        <li><a class="ms-link" href="/invoice">Invoice</a></li>
                     </ul>
                 </li>
                 <li class="collapsed">
