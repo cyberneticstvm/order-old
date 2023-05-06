@@ -216,6 +216,8 @@ class OrderController extends Controller
                 endforeach;
                 OrderDetail::where('order_id', $order->id)->delete();
                 OrderDetail::insert($data);
+                $order_payment = OrderPayment::where('order_id', $order->id)->orderBy('id')->first();
+                if($order_payment) OrderPayment::where('id', $order_payment->id)->update(['payment_mode' => $input['advance_payment_type'], 'amount' => $input['advance'], 'updated_by' => $request->user()->id, 'updated_at' => Carbon::now()]);
             });            
         }catch(Exception $e){
             return redirect()->route('order.create', $id)->with('error', $e->getMessage())->withInput($request->all());

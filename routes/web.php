@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\IncomeExpenseController;
+use App\Http\Controllers\IncomeExpenseHeadController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderPaymentController;
 use App\Http\Controllers\PDFController;
@@ -91,4 +93,18 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/order/payment/create/{id}', [OrderPaymentController::class, 'create'])->name('order.payment.create');
     Route::post('/order/payment/create', [OrderPaymentController::class, 'store'])->name('order.payment.save');
     Route::delete('/order/payment/delete/{id}', [OrderController::class, 'destroy'])->name('order.payment.delete')->middleware('signed');
+
+    Route::get('/iehead', [IncomeExpenseHeadController::class, 'index'])->name('iehead');
+    Route::get('/iehead/create', [IncomeExpenseHeadController::class, 'create'])->name('iehead.create');
+    Route::post('/iehead/create', [IncomeExpenseHeadController::class, 'store'])->name('iehead.save');
+    Route::get('/iehead/edit/{id}', [IncomeExpenseHeadController::class, 'edit'])->name('iehead.edit');
+    Route::put('/iehead/edit/{id}', [IncomeExpenseHeadController::class, 'update'])->name('iehead.update');
+    Route::delete('/iehead/delete/{id}', [IncomeExpenseHeadController::class, 'destroy'])->name('iehead.delete');
+
+    Route::get('/ie', [IncomeExpenseController::class, 'index'])->name('ie');
+    Route::get('/ie/create', [IncomeExpenseController::class, 'create'])->name('ie.create');
+    Route::post('/ie/create', [IncomeExpenseController::class, 'store'])->name('ie.save');
+    Route::get('/ie/edit/{id}', [IncomeExpenseController::class, 'edit'])->name('ie.edit');
+    Route::put('/ie/edit/{id}', [IncomeExpenseController::class, 'update'])->name('ie.update');
+    Route::delete('/ie/delete/{id}', [IncomeExpenseController::class, 'destroy'])->name('ie.delete');
 });
