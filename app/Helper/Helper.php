@@ -9,6 +9,10 @@ function getCurrentBranch(){
     return (Session::get('branch')) ? Branch::find(Session::get('branch')) : Branch::find(1);
 }
 
+function branches(){
+    return Branch::all();
+}
+
 function generateOrderNumber(){
     $br = Branch::find(session()->get('branch'));
     $ono = Order::where('branch_id', session()->get('branch'))->selectRaw("IFNULL(MAX(CAST(SUBSTRING_INDEX(order_number, '/', -1) AS SIGNED)+1), 1001) AS orderno")->value('orderno');

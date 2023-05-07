@@ -125,4 +125,12 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/stockin/edit/{id}', [StockTransferController::class, 'edit'])->name('stockin.edit');
     Route::put('/stockin/edit/{id}', [StockTransferController::class, 'update'])->name('stockin.update');
     Route::delete('/stockin/delete/{id}', [StockTransferController::class, 'destroy'])->name('stockin.delete');
+
+    Route::get('/stockout', [StockTransferController::class, 'indexd'])->name('stockout');
+    Route::get('/stockout/create', [StockTransferController::class, 'created'])->name('stockout.create');
+    Route::post('/stockout/create', [StockTransferController::class, 'stored'])->name('stockout.save');
+    Route::get('/stockout/edit/{id}', [StockTransferController::class, 'editd'])->name('stockout.edit');
+    Route::put('/stockout/edit/{id}', [StockTransferController::class, 'updated'])->name('stockout.update');
+    Route::delete('/stockout/delete/{id}', [StockTransferController::class, 'destroyd'])->name('stockout.delete');
+
 });
