@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Branch;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
-class BranchController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branches = Branch::all();
-        return view('branch.index', compact('branches'));
+        $suppliers = Supplier::all();
+        return view('supplier.index', compact('suppliers'));
     }
 
     /**
@@ -25,7 +25,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('branch.create');
+        return view('supplier.create');
     }
 
     /**
@@ -37,14 +37,14 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'mobile' => 'required|numeric|digits:10',
+            'name' => 'required|unique:suppliers,name',
             'address' => 'required',
-            'name' => 'required|unique:branches,name',
-            'branch_code' => 'required|unique:branches,branch_code',
         ]);
         $input = $request->all();
-        Branch::create($input);
-        return redirect()->route('branch')->with('success', 'Branch created successfully');
+        $input['created_by'] = $request->user()->id;
+        $input['updated_by'] = $request->user()->id;
+        Supplier::create($input);
+        return redirect()->route('supplier')->with('success', 'Supplier created successfully');
     }
 
     /**
@@ -65,9 +65,9 @@ class BranchController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
-        $branch = Branch::find(decrypt($id));
-        return view('branch.edit', compact('branch'));
+    {
+        $supplier = Supplier::find(decrypt($id));
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
@@ -80,15 +80,14 @@ class BranchController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'mobile' => 'required|numeric|digits:10',
+            'name' => 'required|unique:suppliers,name,'.$id,
             'address' => 'required',
-            'name' => 'required|unique:branches,name,'.$id,
-            'branch_code' => 'required|unique:branches,branch_code,'.$id,
         ]);
         $input = $request->all();
-        $branch = Branch::find($id);
-        $branch->update($input);
-        return redirect()->route('branch')->with('success', 'Branch updated successfully');
+        $input['updated_by'] = $request->user()->id;
+        $s = Supplier::find($id);
+        $s->update($input);
+        return redirect()->route('supplier')->with('success', 'Supplier updated successfully');
     }
 
     /**
@@ -99,7 +98,7 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        Branch::find($id)->delete();
-        return redirect()->route('branch')->with('success', 'Branch deleted successfully');
+        Supplier::find($id)->delete();
+        return redirect()->route('supplier')->with('success', 'Supplier deleted successfully');
     }
 }

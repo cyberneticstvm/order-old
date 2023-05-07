@@ -12,6 +12,8 @@ use App\Http\Controllers\OrderPaymentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockTransferController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +39,10 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 
     Route::get('/dash', [UserController::class, 'dash'])->name('dash');
 
+    Route::get('/helper/createddlcat', [HelperController::class, 'createddlcat'])->name('createddlcat');
     Route::get('/helper/createddl/{category}', [HelperController::class, 'createddl'])->name('createddl');
     Route::get('/helper/createddlSubCat/{category}', [HelperController::class, 'createddlSubCat'])->name('createddlSubCat');
+    Route::get('/helper/createddlProduct/{subcategory}', [HelperController::class, 'createddlProduct'])->name('createddlPrdct');
     Route::get('/helper/getProductPrice', [HelperController::class, 'getProductPrice'])->name('getProductPrice');
 
     Route::get('/pdf/order-bill/{id}', [PDFController::class, 'orderbill'])->name('pdf.orderbill');
@@ -107,4 +111,18 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/ie/edit/{id}', [IncomeExpenseController::class, 'edit'])->name('ie.edit');
     Route::put('/ie/edit/{id}', [IncomeExpenseController::class, 'update'])->name('ie.update');
     Route::delete('/ie/delete/{id}', [IncomeExpenseController::class, 'destroy'])->name('ie.delete');
+
+    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
+    Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+    Route::post('/supplier/create', [SupplierController::class, 'store'])->name('supplier.save');
+    Route::get('/supplier/edit/{id}', [SupplierController::class, 'edit'])->name('supplier.edit');
+    Route::put('/supplier/edit/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+    Route::delete('/supplier/delete/{id}', [SupplierController::class, 'destroy'])->name('supplier.delete');
+
+    Route::get('/stockin', [StockTransferController::class, 'index'])->name('stockin');
+    Route::get('/stockin/create', [StockTransferController::class, 'create'])->name('stockin.create');
+    Route::post('/stockin/create', [StockTransferController::class, 'store'])->name('stockin.save');
+    Route::get('/stockin/edit/{id}', [StockTransferController::class, 'edit'])->name('stockin.edit');
+    Route::put('/stockin/edit/{id}', [StockTransferController::class, 'update'])->name('stockin.update');
+    Route::delete('/stockin/delete/{id}', [StockTransferController::class, 'destroy'])->name('stockin.delete');
 });

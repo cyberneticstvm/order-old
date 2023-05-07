@@ -34,7 +34,7 @@
                                 <td>{{ $product->subcategory->name }}</td>
                                 <td>{{ $product->description }}</td>
                                 <td class="text-end">{{ $product->mrp }}</td>
-                                <td class="text-center"><a href="/product/edit/{{$product->id}}"><i class="fa fa-pencil text-warning"></i></a></td>
+                                <td class="text-center"><a href="/product/edit/{{encrypt($product->id)}}"><i class="fa fa-pencil text-warning"></i></a></td>
                                 <td class="text-center">
                                     <form method="post" action="{{ route('product.delete', $product->id) }}">
                                         @csrf 

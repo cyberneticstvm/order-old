@@ -8,6 +8,12 @@ use DB;
 
 class HelperController extends Controller
 {
+
+    public function createddlcat(){
+        $data = DB::table('categories')->select('id', 'name')->get();
+        return response()->json($data);
+    }
+
     public function createddl($category){
         $data = DB::table('products')->where('category_id', $category)->select('id', 'name')->get();
         return response()->json($data);
@@ -15,6 +21,11 @@ class HelperController extends Controller
 
     public function createddlSubCat($category){
         $data = DB::table('subcategories')->where('category_id', $category)->select('id', 'name')->get();
+        return response()->json($data);
+    }
+
+    public function createddlProduct($subcategory){
+        $data = DB::table('products')->where('subcategory_id', $subcategory)->select('id', 'name')->get();
         return response()->json($data);
     }
 

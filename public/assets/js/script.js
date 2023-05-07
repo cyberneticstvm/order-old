@@ -85,8 +85,43 @@ $(function(){
             }
         });
     });
+
     $(document).on('change', '.qty, .price, .total, .discount, .advance, .tax_per, .disc_per', function(){
         calculateTotal();
+    });
+
+    $(document).on('click', '.addStockRow', function(){
+        $(".tblStock").append("<tr><td><select class='form-control form-control-sm select2 selPdctCat' name='category[]' required></select></td><td><select class='form-control form-control-sm select2 selProdSubcat' name='subcategory[]' required></select></td><td><select class='form-control form-control-sm select2 selProd' name='product[]' required></select></td><td><input type='number' class='form-control form-control-sm border-0 text-end' name='qty[]' required /></td><td class='text-center'><a href='javascript:void(0)' onclick='$(this).parent().parent().remove();calculateTotal();'><i class='fa fa-times text-danger'></i></a></td></tr>");
+        bindCategoryDDL('selPdctCat');
+    });
+
+    $(document).on('change', '.selPdctCat', function(){
+        var dis = $(this); var catid = dis.val();
+        $.ajax({
+            type: 'GET',
+            url: '/helper/createddlSubCat/'+catid
+        }).then(function (data){
+            var options = "<option value=''>Select</option>";
+            $.map(data, function(obj){
+                options = options + "<option value='"+obj.id+"'>"+obj.name+"</option>";
+            });
+            dis.closest('tr').find(".selProdSubcat").select2();
+            dis.closest('tr').find(".selProdSubcat").html(options);
+        });
+    });
+    $(document).on('change', '.selProdSubcat', function(){
+        var dis = $(this); var subcatid = dis.val();
+        $.ajax({
+            type: 'GET',
+            url: '/helper/createddlProduct/'+subcatid
+        }).then(function (data){
+            var options = "<option value=''>Select</option>";
+            $.map(data, function(obj){
+                options = options + "<option value='"+obj.id+"'>"+obj.name+"</option>";
+            });
+            dis.closest('tr').find(".selProd").select2();
+            dis.closest('tr').find(".selProd").html(options);
+        });
     });
 });
 
@@ -94,6 +129,19 @@ function bindDDL(category, ddl){
     $.ajax({
         type: 'GET',
         url: '/helper/createddl/'+category
+    }).then(function (data){
+        xdata = $.map(data, function(obj){
+            obj.text = obj.name || obj.id;  
+            return obj;
+        });
+        $('.'+ddl).select2({data:xdata});
+    });
+}
+
+function bindCategoryDDL(ddl){
+    $.ajax({
+        type: 'GET',
+        url: '/helper/createddlcat'
     }).then(function (data){
         xdata = $.map(data, function(obj){
             obj.text = obj.name || obj.id;  

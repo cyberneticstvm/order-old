@@ -108,6 +108,7 @@
                         <li><a class="ms-link" href="/branch">Branch Management</a></li>
                         <li><a class="ms-link" href="/iehead">Income & Expense Heads</a></li>
                         <li><a class="ms-link" href="/ie">Income & Expense Management</a></li>
+                        <li><a class="ms-link" href="/supplier">Supplier Management</a></li>
                     </ul>
                 </li>
                 <li class="collapsed">
@@ -118,9 +119,9 @@
                         <li><a class="ms-link" href="/category">Category Management</a></li>
                         <li><a class="ms-link" href="/subcategory">Subcategory Management</a></li>
                         <li><a class="ms-link" href="/product">Product Management</a></li>                        
-                        <li><a class="ms-link" href="/dash">Stock Add</a></li>
-                        <li><a class="ms-link" href="/dash">Stock Transfer</a></li>
-                        <li><a class="ms-link" href="/dash">Stock In Hand</a></li>
+                        <li><a class="ms-link" href="/stockin">Stock Add</a></li>
+                        <li><a class="ms-link" href="/stockout">Stock Transfer</a></li>
+                        <li><a class="ms-link" href="/stockhand">Stock In Hand</a></li>
                     </ul>
                 </li>
                 <li class="collapsed">
