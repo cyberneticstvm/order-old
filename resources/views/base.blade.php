@@ -121,7 +121,7 @@
                         <li><a class="ms-link" href="/product">Product Management</a></li>                        
                         <li><a class="ms-link" href="/stockin">Stock Add</a></li>
                         <li><a class="ms-link" href="/stockout">Stock Transfer</a></li>
-                        <li><a class="ms-link" href="/stockhand">Stock In Hand</a></li>
+                        <li><a class="ms-link" href="/stockinhand">Stock In Hand</a></li>
                     </ul>
                 </li>
                 <li class="collapsed">

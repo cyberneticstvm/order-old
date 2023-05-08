@@ -133,4 +133,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::put('/stockout/edit/{id}', [StockTransferController::class, 'updated'])->name('stockout.update');
     Route::delete('/stockout/delete/{id}', [StockTransferController::class, 'destroyd'])->name('stockout.delete');
 
+    Route::get('/stockinhand', [HelperController::class, 'stockinhand'])->name('stockinhand');
+    Route::post('/stockinhand', [HelperController::class, 'fetchstockinhand'])->name('stockinhand.fetch');
+
 });
