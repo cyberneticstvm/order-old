@@ -33,9 +33,11 @@ Route::get('/', function () {
 
 Route::post('/', [UserController::class, 'login'])->name('login');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-Route::post('store_branch_session', [UserController::class, 'store_branch_session'])->name('store_branch_session');
-Route::get('/dash', [UserController::class, 'dash'])->name('dash');
 
+Route::group(['middleware' => ['web', 'auth']], function(){  
+    Route::post('store_branch_session', [UserController::class, 'store_branch_session'])->name('store_branch_session');
+    Route::get('/dash', [UserController::class, 'dash'])->name('dash');
+});
 Route::group(['middleware' => ['web', 'auth', 'branch']], function(){   
 
     Route::get('/helper/createddlcat', [HelperController::class, 'createddlcat'])->name('createddlcat');
