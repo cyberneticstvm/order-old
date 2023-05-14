@@ -34,7 +34,7 @@ Route::get('/', function () {
 Route::post('/', [UserController::class, 'login'])->name('login');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['web', 'auth']], function(){
+Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
 
     Route::post('store_branch_session', [UserController::class, 'store_branch_session'])->name('store_branch_session');
 
