@@ -64,7 +64,7 @@
                                         <img class="avatar rounded-circle" src="{{ asset('assets/images/profile_av.png') }}" alt="">
                                         <div class="flex-fill ms-3">
                                             <p class="mb-0"><span class="fw-bold">{{ Auth::user()->name }}</span></p>
-                                            <small class="text-muted">{{ Auth::user()->usertype->name }}</small>
+                                            <small class="text-muted">{{ Auth::user()->roles->pluck('name')->implode(',') }}</small>
                                             <a href="/logout" class="d-block">Sign out</a>
                                         </div>
                                     </div>
@@ -98,6 +98,7 @@
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Pages">
                         <li><a class="ms-link" href="/user">User Management</a></li>
+                        <li><a class="ms-link" href="/role">Roles & Permissions</a></li>
                     </ul>
                 </li>
                 <li class="collapsed">

@@ -12,6 +12,13 @@ class IncomeExpenseHeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct(){
+        $this->middleware('permission:ie-head-list|ie-head-create|ie-head-edit|ie-head-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:ie-head-create', ['only' => ['create','store']]);
+        $this->middleware('permission:ie-head-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:ie-head-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $heads = IncomeExpenseHead::all();

@@ -12,6 +12,7 @@ use App\Http\Controllers\OrderPaymentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\SupplierController;
 
@@ -53,6 +54,13 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/edit/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+
+    Route::get('/role', [RoleController::class, 'index'])->name('role');
+    Route::get('/role/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/role/create', [RoleController::class, 'store'])->name('role.save');
+    Route::get('/role/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
+    Route::put('/role/edit/{id}', [RoleController::class, 'update'])->name('role.update');
+    Route::delete('/role/delete/{id}', [RoleController::class, 'destroy'])->name('role.delete');
 
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');

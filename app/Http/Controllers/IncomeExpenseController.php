@@ -13,6 +13,13 @@ class IncomeExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct(){
+        $this->middleware('permission:ie-list|ie-create|ie-edit|ie-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:ie-create', ['only' => ['create','store']]);
+        $this->middleware('permission:ie-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:ie-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $ies = IncomeExpense::all();

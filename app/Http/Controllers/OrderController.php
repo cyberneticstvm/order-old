@@ -23,6 +23,13 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct(){
+        $this->middleware('permission:order-list|order-create|order-edit|order-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:order-create', ['only' => ['create','store']]);
+        $this->middleware('permission:order-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:order-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {        
         $orders = Order::where('branch_id', getCurrentBranch()->id)->whereDate('order_date', Carbon::today())->orderByDesc('id')->get();

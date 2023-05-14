@@ -38,16 +38,10 @@
                                 @enderror
                             </div>
                             <div class="col-sm-3">
-                                <label class="form-label req">User Type</label>
-                                <select name="user_type" class="form-control show-tick ms select2">
-                                    <option value="">Select</option>
-                                    @forelse($roles as $key => $role)
-                                        <option value="{{ $role->id }}" {{ ($user->user_type == $role->id) ? 'selected' : '' }}>{{ $role->name }}</option>
-                                    @empty
-                                    @endforelse
-                                </select>
-                                @error('user_type')
-                                    <small class="text-danger">{{ $errors->first('user_type') }}</small>
+                                <label class="form-label req">User Role</label>
+                                {!! Form::select('roles', $roles, $userRole, array('placeholder' => 'Select','class' => 'form-control select2')) !!}
+                                @error('roles')
+                                    <small class="text-danger">{{ $errors->first('roles') }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-3">
@@ -55,6 +49,13 @@
                                 <input type="password" name="password" class="form-control" placeholder="******">
                                 @error('password')
                                 <small class="text-danger">{{ $errors->first('password') }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label req">User Branches</label>
+                                    {!! Form::select('branch[]', $branches, $user->branches()->pluck('branch_id'), array('class' => 'form-control select2', 'multiple' => 'multiple', 'data-placeholder' => 'Select Branch')) !!}
+                                @error('branch')
+                                    <small class="text-danger">{{ $errors->first('branch') }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-3">

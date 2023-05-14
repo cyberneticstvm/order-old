@@ -21,7 +21,7 @@
                     <p class= "text-end my-3"><a href="/user/create/"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
-                        <thead><tr><th>SL No</th><th>Name</th><th>Email</th><th>Role</th><th>Edit</th><th>Delete</th></tr></thead>
+                        <thead><tr><th>SL No</th><th>Name</th><th>Email</th><th>Role</th><th>Branches</th><th>Edit</th><th>Delete</th></tr></thead>
                         <tbody>
                             @php $c = 1; @endphp
                             @forelse($users as $key => $user)
@@ -29,8 +29,9 @@
                                 <td>{{ $c++ }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->usertype->name }}</td>
-                                <td class="text-center"><a href="/user/edit/{{$user->id}}"><i class="fa fa-pencil text-warning"></i></a></td>
+                                <td>{{ $user->roles->pluck('name')->implode(',') }}</td>
+                                <td>{{ branches()->whereIn('id', $user->branches->pluck('branch_id'))->pluck('name')->implode(', ') }}</td>
+                                <td class="text-center"><a href="/user/edit/{{encrypt($user->id)}}"><i class="fa fa-pencil text-warning"></i></a></td>
                                 <td class="text-center">
                                     <form method="post" action="{{ route('user.delete', $user->id) }}">
                                         @csrf 
