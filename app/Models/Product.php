@@ -26,4 +26,8 @@ class Product extends Model
     public function subcategory(){
         return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
     }
+
+    public function getFullNameAttribute(){ // This is an accessor function to concat two columns
+        return $this->name . ' - ' . $this->product_code;
+    }
 }

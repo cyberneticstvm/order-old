@@ -102,15 +102,21 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-9">
-                                <h5 class="text-primary mb-1 text-center"><strong>Prescription</strong></h5>
+                            <div class="col-md-12">
                                 @error('product')
                                 <small class="text-danger">{{ $errors->first('product') }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-3">
+                                <label class="form-label">Barcode Input</label>
+                                <input type="text" class="form-control" name="" id="bcodepdct" placeholder="Barcode Input" />
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-primary mb-1 text-center"><strong>Prescription</strong></h5>
+                            </div>
+                            <div class="col-md-3">
                                 <label class="form-label">Add New Item</label>
-                                {!! Form::select('sel_category_for_add_item', $categories->pluck('name', 'id')->all(),  '', ['class' => 'form-control form-control-sm select2 sel_category_for_add_item', 'placeholder' => 'Category']) !!}
+                                {!! Form::select('sel_category_for_add_item', $categories->pluck('fill_name', 'id')->all(),  '', ['class' => 'form-control form-control-sm select2 sel_category_for_add_item', 'placeholder' => 'Category']) !!}
                             </div>
                             <div class="col-12 table-responsive mt-3">
                                 <table class="tblOrder table table-bordered table-sm">
@@ -128,7 +134,7 @@
                                                     <td colspan="4"><input type='hidden' name='sph[]' value='' /><input type='hidden' name='cyl[]' value='' /><input type='hidden' name='axis[]' value='' /><input type='hidden' name='add[]' value='' /></td>
                                                 @endif
                                                 <td>
-                                                    {!! Form::select('product[]', $products->pluck('name', 'id')->all(), $value->product_id, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
+                                                    {!! Form::select('product[]', $products->pluck('full_name', 'id')->all(), $value->product_id, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
                                                 </td>
                                                 <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" value="{{ $value->qty }}" /></td>
                                                 <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" value="{{ $value->price }}" /></td>

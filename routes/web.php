@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
     Route::get('/helper/createddlSubCat/{category}', [HelperController::class, 'createddlSubCat'])->name('createddlSubCat');
     Route::get('/helper/createddlProduct/{subcategory}', [HelperController::class, 'createddlProduct'])->name('createddlPrdct');
     Route::get('/helper/getProductPrice', [HelperController::class, 'getProductPrice'])->name('getProductPrice');
+    Route::get('/helper/getProduct', [HelperController::class, 'getProduct'])->name('getProduct');
 
     Route::get('/pdf/order-bill/{id}', [PDFController::class, 'orderbill'])->name('pdf.orderbill');
 

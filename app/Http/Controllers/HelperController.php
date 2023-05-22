@@ -39,6 +39,12 @@ class HelperController extends Controller
         return response()->json($product);
     }
 
+    public function getProduct(Request $request){
+        $tax_per = Product::where('product_code', $request->product)->first()->subcategory->tax_percentage;
+        $product = Product::where('product_code', $request->product)->selectRaw("CAST(CASE WHEN $tax_per > 0 THEN round(mrp-((mrp*$tax_per)/100), 2) ELSE mrp END AS DECIMAL(7,2)) AS price_after_tax, $tax_per as tax_percentage, discount_percentage, mrp, id")->first();
+        return response()->json($product);
+    }
+
     public function stockinhand(){
         $products = Product::all(); $inputs = []; $stockin = collect(); $transfer = collect(); $sold = collect();
         return view('stockinhand.index', compact('products', 'inputs', 'stockin', 'transfer', 'sold'));

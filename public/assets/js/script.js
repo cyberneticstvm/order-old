@@ -123,6 +123,65 @@ $(function(){
             dis.closest('tr').find(".selProd").html(options);
         });
     });
+
+    $("#bcodepdct").keypress(function(event){
+        if(event.which == '10' || event.which == '13') {
+            event.preventDefault();
+            var pcode = $("#bcodepdct").val();
+            $.ajax({
+                type: 'GET',
+                url: '/helper/getProduct',
+                data: {'product': pcode},
+                success: function(response){
+                    $(".tblOrder tbody").find('tr:eq(0)').find('.qty').val(1);
+                    $(".tblOrder tbody").find('tr:eq(0)').find('.price').val(response.mrp);
+                    $(".tblOrder tbody").find('tr:eq(0)').find('.tax_per').val(response.tax_percentage);
+                    $(".tblOrder tbody").find('tr:eq(0)').find('.disc_per').val(response.discount_percentage);
+                    $(".tblOrder tbody").find('tr:eq(0)').find('.total').val(response.price_after_tax);
+                    $(".tblOrder tbody").find('tr:eq(1)').find('.qty').val(1);
+                    $(".tblOrder tbody").find('tr:eq(1)').find('.price').val(response.mrp);
+                    $(".tblOrder tbody").find('tr:eq(1)').find('.tax_per').val(response.tax_percentage);
+                    $(".tblOrder tbody").find('tr:eq(1)').find('.disc_per').val(response.discount_percentage);
+                    $(".tblOrder tbody").find('tr:eq(1)').find('.total').val(response.price_after_tax);
+    
+                    $(".tblOrder tbody").find('tr:eq(0)').find('.selLens').val(response.id);
+                    $(".tblOrder tbody").find('tr:eq(1)').find('.selLens').val(response.id);
+                    $('.selLens').select2();
+                    calculateTotal();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest);
+                }
+            });
+        }
+    });
+
+    $("#bcodeFrame").keypress(function(event){
+        if(event.which == '10' || event.which == '13') {
+            event.preventDefault();
+            var pcode = $("#bcodeFrame").val();
+            $.ajax({
+                type: 'GET',
+                url: '/helper/getProduct',
+                data: {'product': pcode},
+                success: function(response){
+                    $(".tblOrder tbody").find('tr:eq(2)').find('.qty').val(1);
+                    $(".tblOrder tbody").find('tr:eq(2)').find('.price').val(response.mrp);
+                    $(".tblOrder tbody").find('tr:eq(2)').find('.tax_per').val(response.tax_percentage);
+                    $(".tblOrder tbody").find('tr:eq(2)').find('.disc_per').val(response.discount_percentage);
+                    $(".tblOrder tbody").find('tr:eq(2)').find('.total').val(response.price_after_tax);
+    
+                    $(".tblOrder tbody").find('tr:eq(2)').find('.selFrame').val(response.id);
+                    $('.selFrame').select2();
+                    calculateTotal();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest);
+                }
+            });
+        }
+    });
+
 });
 
 function bindDDL(category, ddl){
