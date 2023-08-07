@@ -50,5 +50,28 @@
             </tr>
         </tbody>
     </table>
+    <center><p>Product Details</p></center>
+    <table class="bordered" width="100%" cellspacing="0" cellpadding="0">
+        <thead><tr><th>SL No</th><th>Product</th><th>Qty</th><th>Price</th><th>Discount</th><th>Tax</th><th>Total</th></tr></thead>
+        <tbody>
+            @php $slno = 1; @endphp
+            @forelse($order->orderdetails as $key => $value)
+            <tr>
+                <td>{{ $slno++ }}</td>
+                <td>{{ $value->product->name }}</td>
+                <td class="text-right">{{ $value->qty }}</td>
+                <td class="text-right">{{ $value->price }}</td>
+                <td class="text-right">{{ $value->discount_amount }}</td>
+                <td class="text-right">{{ $value->tax_amount }}</td>
+                <td class="text-right">{{ $value->total }}</td>
+            </tr>
+            @empty
+            @endforelse
+            <tr><td colspan="6" class="text-right"><b>Total</b></td><td class="text-right"><b>{{ $order->order_total }}</b></td></tr>
+            <tr><td colspan="6" class="text-right"><b>Discount</b></td><td class="text-right"><b>{{ $order->discount }}</b></td></tr>
+            <tr><td colspan="6" class="text-right"><b>Advance</b></td><td class="text-right"><b>{{ $order->advance }}</b></td></tr>
+            <tr><td colspan="6" class="text-right"><b>Balance</b></td><td class="text-right"><b>{{ $order->balance }}</b></td></tr>
+        </tbody>
+    </table>
 </body>
 </html>

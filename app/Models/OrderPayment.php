@@ -26,4 +26,6 @@ class OrderPayment extends Model
     public function pmode(){
         return $this->belongsTo(PaymentMode::class, 'payment_mode', 'id');
     }
+
+    protected $casts = ['payment_date' => 'date'];
 }

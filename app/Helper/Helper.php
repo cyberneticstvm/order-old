@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Branch;
+use App\Models\Invoice;
 use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 
@@ -22,6 +23,12 @@ function generateOrderNumber(){
 function generateProductCode(){
     $key = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     return substr(str_shuffle($key), 0, 6);
+}
+
+function generateInvoiceNumber($branch){
+    $br = Branch::find($branch);
+    $inv = Invoice::selectRaw("IFNULL(MAX(CAST(SUBSTRING_INDEX(invoice_number, '/', -1) AS SIGNED)+1), 1001) AS inv")->value('inv');
+    return 'INV'.'/'.$br->branch_code.'/'.$inv;
 }
 
 ?>

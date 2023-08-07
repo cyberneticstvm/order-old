@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\IncomeExpenseController;
 use App\Http\Controllers\IncomeExpenseHeadController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderPaymentController;
 use App\Http\Controllers\PDFController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Invoice;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +49,9 @@ Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
     Route::get('/helper/getProductPrice', [HelperController::class, 'getProductPrice'])->name('getProductPrice');
     Route::get('/helper/getProduct', [HelperController::class, 'getProduct'])->name('getProduct');
 
-    Route::get('/pdf/order-bill/{id}', [PDFController::class, 'orderbill'])->name('pdf.orderbill');
+    Route::get('/pdf/order-bill/{id}', [PDFController::class, 'orderBill'])->name('pdf.orderbill');
+    Route::get('/pdf/payment-receipt/{id}', [PDFController::class, 'paymentReceipt'])->name('pdf.paymentreceipt');
+    Route::get('/pdf/invoice/{id}', [PDFController::class, 'invoice'])->name('pdf.invoice');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
@@ -105,7 +109,14 @@ Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
     Route::get('/order/payment/proceed', [OrderPaymentController::class, 'fetch'])->name('order.payment.proceed');
     Route::get('/order/payment/create/{id}', [OrderPaymentController::class, 'create'])->name('order.payment.create');
     Route::post('/order/payment/create', [OrderPaymentController::class, 'store'])->name('order.payment.save');
-    Route::delete('/order/payment/delete/{id}', [OrderController::class, 'destroy'])->name('order.payment.delete')->middleware('signed');
+    Route::delete('/order/payment/delete/{id}', [OrderController::class, 'destroy'])->name('order.payment.delete');
+
+    Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
+    Route::post('/invoice', [InvoiceController::class, 'fetch'])->name('invoice.fetch');
+    Route::get('/invoice/proceed', [InvoiceController::class, 'fetch'])->name('invoice.proceed');
+    Route::get('/invoice/create/{id}', [InvoiceController::class, 'create'])->name('invoice.create');
+    /*Route::post('/invoice/create', [InvoiceController::class, 'store'])->name('invoice.save');*/
+    Route::put('/invoice/delete/{id}', [InvoiceController::class, 'destroy'])->name('invoice.delete');
 
     Route::get('/iehead', [IncomeExpenseHeadController::class, 'index'])->name('iehead');
     Route::get('/iehead/create', [IncomeExpenseHeadController::class, 'create'])->name('iehead.create');
@@ -143,6 +154,6 @@ Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
     Route::delete('/stockout/delete/{id}', [StockTransferController::class, 'destroyd'])->name('stockout.delete');
 
     Route::get('/stockinhand', [HelperController::class, 'stockinhand'])->name('stockinhand');
-    Route::post('/stockinhand', [HelperController::class, 'fetchstockinhand'])->name('stockinhand.fetch');
+    Route::post('/stockinhand', [HelperController::class, 'fetchstockinhand'])->name('stockinhand.fetch');    
 
 });
