@@ -110,7 +110,7 @@
     <br>
     <table class="bordered" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td class="bordered">   
+            <td class="bordered" width="50%">   
             <b>Bank Details</b><br>
             Name: Drx Lab<br>
             IFSC Code: HDFC0001492<br>
@@ -120,7 +120,7 @@
             <td class="bordered"><center>Payment QR Code (PhonePe / Google Pay)</center></td>
         </tr>
         <tr>
-            <td class="bordered">
+            <td class="bordered" width="50%">
             <b>Terms & Conditions</b><br>
             This is computer generated does not require stamp and<br>
             signature Subject to Thiruvananthapuram Jurisdiction
