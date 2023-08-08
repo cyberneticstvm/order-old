@@ -19,25 +19,34 @@
         .text-right{
             text-align: right;
         }
+        .txt{
+            font-size: x-small;
+        }
+        .text-center{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <center>
-        <img src="./assets/images/Devi-Logo-Transparent.jpg" width="15%"/><br/>
-            {{ $order->branch->address }}, Phone: {{ $order->branch->mobile }}
-    </center>
-    <br/>
+    <table width="100%">
+        <tr><td></td><td>
+        <center>
+            <img src="./assets/images/Devi-Logo-Transparent.jpg" width="15%"/><br/>
+                {{ $order->branch->address }}, Phone: {{ $order->branch->mobile }}
+        </center>
+        </td><td><img src="data:image/png;base64, {!! $qrcode !!}"></td></tr>
+    </table>
     <table class="bordered" width="100%" cellspacing="0" cellpadding="0">
         <thead><tr><th text-align="center" colspan="4">Order Bill</th></tr></thead>
         <tbody>
             <tr>
-                <td>PATIENT NAME</td>
+                <td>CUSTOMER NAME</td>
                 <td>{{ $order->patient_name }}</td>
                 <td>AGE / SEX</td>
                 <td>{{ $order->age }} / {{ $order->gender }}</td>
             </tr>
             <tr>
-                <td>PATIENT CONTACT</td>
+                <td>CUSTOMER CONTACT</td>
                 <td>{{ $order->mobile }}</td>
                 <td>ORDER NUMBER</td>
                 <td>{{ $order->order_number }}</td>
@@ -73,57 +82,68 @@
             <tr><td colspan="6" class="text-right"><b>Balance</b></td><td class="text-right"><b>{{ $order->balance }}</b></td></tr>
         </tbody>
     </table>
+    <center><p class="txt"> welcome to Devi Opticians Family. Thank you for your order. For any enquiry about your order please contact us on 93 88 611 622</p></center>
     ------------------------------------------------------------------------------------------------------------------------------------
-    <center>
-        <img src="./assets/images/Devi-Logo-Transparent.jpg" width="15%"/><br/>
-            {{ $order->branch->address }}, Phone: {{ $order->branch->mobile }}
-    </center>
-    <br/>
-    <table class="bordered" width="100%" cellspacing="0" cellpadding="0">
-        <thead><tr><th text-align="center" colspan="4">Order Bill</th></tr></thead>
-        <tbody>
-            <tr>
-                <td>PATIENT NAME</td>
-                <td>{{ $order->patient_name }}</td>
-                <td>AGE / SEX</td>
-                <td>{{ $order->age }} / {{ $order->gender }}</td>
-            </tr>
-            <tr>
-                <td>PATIENT CONTACT</td>
-                <td>{{ $order->mobile }}</td>
-                <td>ORDER NUMBER</td>
-                <td>{{ $order->order_number }}</td>
-            </tr>
-            <tr>
-                <td>MEDICAL RECORD ID</td>
-                <td>{{ $order->medical_record_id }}</td>
-                <td>ORDER DATE</td>
-                <td>{{ $order->order_date->format('d-M-Y') }}</td>
-            </tr>
-        </tbody>
+    <br>
+    <table>
+        <tr>
+            <td>
+                Order Date: <b>{{ $order->order_date->format('d-M-Y') }}</b>
+            </td>
+            <td>
+                Due Date: <b>{{ $order->expected_delivery_date->format('d-M-Y') }}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Order Number: <b>{{ $order->order_number }}</b>
+            </td>
+            <td>
+                Customer Name: <b>{{ $order->patient_name }}</b>
+            </td>
+        </tr>
     </table>
-    <center><p>Product Details</p></center>
-    <table class="bordered" width="100%" cellspacing="0" cellpadding="0">
-        <thead><tr><th>SL No</th><th>Product</th><th>Qty</th><th>Price</th><th>Discount</th><th>Tax</th><th>Total</th></tr></thead>
+    <br>
+    <table width="50%" cellspacing="0" cellpadding="0">
         <tbody>
-            @php $slno = 1; @endphp
             @forelse($order->orderdetails as $key => $value)
             <tr>
-                <td>{{ $slno++ }}</td>
+                <td>{{ $value->product_type }}</td>
                 <td>{{ $value->product->name }}</td>
                 <td class="text-right">{{ $value->qty }}</td>
-                <td class="text-right">{{ $value->price }}</td>
-                <td class="text-right">{{ $value->discount_amount }}</td>
-                <td class="text-right">{{ $value->tax_amount }}</td>
-                <td class="text-right">{{ $value->total }}</td>
             </tr>
             @empty
             @endforelse
-            <tr><td colspan="6" class="text-right"><b>Total</b></td><td class="text-right"><b>{{ $order->order_total }}</b></td></tr>
-            <tr><td colspan="6" class="text-right"><b>Discount</b></td><td class="text-right"><b>{{ $order->discount }}</b></td></tr>
-            <tr><td colspan="6" class="text-right"><b>Advance</b></td><td class="text-right"><b>{{ $order->advance }}</b></td></tr>
-            <tr><td colspan="6" class="text-right"><b>Balance</b></td><td class="text-right"><b>{{ $order->balance }}</b></td></tr>
         </tbody>
     </table>
+    <br>
+    <table width="50%" cellspacing="0" cellpadding="0">
+        <thead><tr><th></th><th>SPH</th><th>CYL</th><th>AXIS</th><th>ADD</th><th>PD</th><th>FH</th><th>PRISM</th></tr></thead>
+        <tbody>
+            @forelse($order->orderdetails as $key => $value)
+            <tr>
+                <td class="text-center">{{ $value->product_type }}</td>
+                <td class="text-center">{{ $value->sph }}</td>
+                <td class="text-center">{{ $value->cyl }}</td>
+                <td class="text-center">{{ $value->axis }}</td>
+                <td class="text-center">{{ $value->addition }}</td>
+                <td class="text-center">0.00</td>
+                <td class="text-center">0.00</td>
+                <td class="text-center">0.00</td>
+            </tr>
+            @empty
+            @endforelse
+            <tr><td colspan="8" class="text-center">VD:0.00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IPD:0.00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NPD:0.00</td></tr>
+            <tr><td></td>
+                <td class="text-center">DBL<br>0</td>
+                <td class="text-center">ED<br>0</td>
+                <td class="text-center">Size A<br>0</td>
+                <td class="text-center">Size B<br>0</td>
+                <td class="text-center">PA<br>0</td>
+                <td class="text-center">WA<br>0</td>
+            <td></td></tr>
+        </tbody>
+    </table>
+    <p class="txt">Comments: {{ $order->notes }}</p>
 </body>
 </html>

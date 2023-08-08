@@ -30,13 +30,13 @@
     <table class="bordered" width="100%" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
-                <td>PATIENT NAME</td>
+                <td>CUSTOMER NAME</td>
                 <td>{{ $payment->order->patient_name }}</td>
                 <td>AGE / SEX</td>
                 <td>{{ $payment->order->age }} / {{ $payment->order->gender }}</td>
             </tr>
             <tr>
-                <td>PATIENT CONTACT</td>
+                <td>CUSTOMER CONTACT</td>
                 <td>{{ $payment->order->mobile }}</td>
                 <td>ORDER NUMBER</td>
                 <td>{{ $payment->order->order_number }}</td>

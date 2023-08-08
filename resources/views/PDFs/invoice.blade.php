@@ -30,8 +30,8 @@
     <table width="100%">
         <tr>
             <td width="30%">TAX INVOICE</td>
-            <td class="bordered" width="30%">ORIGINAL FOR RECEIPIENT</td>
-            <td width="40%" class="text-right">Innovative Production Process</td>
+            <td class="bordered" width="35%">ORIGINAL FOR RECEIPIENT</td>
+            <td width="35%" class="text-right">Innovative Production Process</td>
         </tr>
     </table>
     <br>
@@ -103,7 +103,7 @@
             <td class="bordered text-right">{{ number_format($invoice->order->orderdetails->sum('tax_amount')/2, 2) }}</td>
             <td class="bordered text-right">{{ number_format($invoice->order->orderdetails->sum('tax_amount')/2, 2) }}</td>
             <td class="bordered text-right">0.00</td>
-            <td class="bordered text-right">{{ $invoice->order->orderdetails->first()->value('tax_percentage') }}</td>
+            <td class="bordered text-right">{{ ($invoice->order->orderdetails->first()) ? $invoice->order->orderdetails->first()->value('tax_percentage') : 0 }}</td>
             <td class="bordered text-right">{{ number_format($invoice->order->orderdetails->sum('tax_amount'), 2) }}</td>
         </tr>
     </table>
@@ -122,8 +122,7 @@
         <tr>
             <td class="bordered" width="50%">
             <b>Terms & Conditions</b><br>
-            This is computer generated does not require stamp and<br>
-            signature Subject to Thiruvananthapuram Jurisdiction
+            This is computer generated does not require stamp and signature Subject to Thiruvananthapuram Jurisdiction
             </td>
             <td class="bordered">
             <center>Authorized Signority For<br>
