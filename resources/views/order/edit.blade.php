@@ -94,6 +94,10 @@
                                 @enderror
                             </div>
                             <div class="col-sm-3">
+                                <label class="form-label">GSTIN</label>
+                                <input type="text" name="gstin" class="form-control form-control-md" value="{{ $order->gstin }}" placeholder="GSTIN">
+                            </div>
+                            <div class="col-sm-3">
                                 <label class="form-label req">Order Status</label>
                                 {!! Form::select('order_status', $status->pluck('name', 'id')->all(),  $order->order_status, ['class' => 'form-control form-control-sm select2 border-0', 'placeholder' => 'OrderStatus']) !!}
                                 @error('order_status')
@@ -137,10 +141,10 @@
                                                     {!! Form::select('product[]', $products->pluck('full_name', 'id')->all(), $value->product_id, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
                                                 </td>
                                                 <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" value="{{ $value->qty }}" /></td>
-                                                <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" value="{{ $value->price }}" /></td>
+                                                <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" value="{{ $value->price }}" readonly /></td>
                                                 <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" value="{{ $value->tax_percentage }}" /></td>
                                                 <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" value="{{ $value->discount_percentage }}" /></td>
-                                                <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" value="{{ $value->total }}" /></td>
+                                                <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" value="{{ $value->total }}" readonly /></td>
                                                 <td><a href='javascript:void(0)' onclick="$(this).parent().parent().remove();calculateTotal();"><i class='fa fa-times text-danger'></i></a></td>
                                             </tr>
                                         @empty
@@ -221,7 +225,24 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-6 table-responsive mt-3">
+                                <table class="tblOrder table table-bordered table-sm">
+                                    <thead class="text-center"><tr><th>Eye</th><th>PD</th><th>FH</th><th>PRISM</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>RE</td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="re_pd" value="{{ $order->re_pd }}" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="re_fh" value="{{ $order->re_fh }}" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="re_prism" value="{{ $order->re_prism }}" placeholder="0.00" /></td></tr>
+                                        <tr><td>LE</td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="le_pd" value="{{ $order->le_pd }}" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="le_fh" value="{{ $order->le_fh }}" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="le_prism" value="{{ $order->le_prism }}" placeholder="0.00" /></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-6 table-responsive mt-3">
+                                <table class="tblOrder table table-bordered table-sm">
+                                    <tbody>
+                                        <tr><td colspan="2"><input type="text" class="form-control form-control-sm border-0 text-end" name="vd" value="{{ $order->vd }}" placeholder="VD" /></td><td colspan="2"><input type="text" class="form-control form-control-sm border-0 text-end" name="ipd" value="{{ $order->ipd }}" placeholder="IPD" /></td><td colspan="2"><input type="text" class="form-control form-control-sm border-0 text-end" name="npd" value="{{ $order->npd }}" placeholder="NPD" /></td></tr>
+                                        <tr><td><input type="text" class="form-control form-control-sm border-0 text-end" name="dbl" value="{{ $order->dbl }}" placeholder="DBL" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="ed" value="{{ $order->ed }}" placeholder="ED" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="size_a" value="{{ $order->size_a }}" placeholder="Size A" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="size_b" value="{{ $order->size_b }}" placeholder="Size B" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="pa" value="{{ $order->pa }}" placeholder="PA" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="wa" value="{{ $order->wa }}" placeholder="WA" /></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 mt-3">
                                 <label class="form-label">Order Notes / Remarks</label>
                                 <textarea class="form-control" name="notes" placeholder="Order Notes / Remarks">{{ $order->notes }}</textarea>
                             </div>                            

@@ -30,8 +30,8 @@
     <table width="100%">
         <tr>
             <td width="30%">TAX INVOICE</td>
-            <td class="bordered" width="35%">ORIGINAL FOR RECEIPIENT</td>
-            <td width="35%" class="text-right">Innovative Production Process</td>
+            <td width="35%">GSTIN: {{ $invoice->order->gstin }}</td>
+            <td class="bordered" class="text-right">ORIGINAL FOR RECEIPIENT</td>
         </tr>
     </table>
     <br>

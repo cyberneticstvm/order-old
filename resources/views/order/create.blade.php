@@ -39,8 +39,8 @@
                                 @enderror
                             </div>
                             <div class="col-sm-4">
-                                <label class="form-label req">Patient Name</label>
-                                <input type="text" value="{{ ($patient) ? $patient->patient_name : '' }}" name="patient_name" class="form-control form-control-md" placeholder="Patient Name">
+                                <label class="form-label req">Customer Name</label>
+                                <input type="text" value="{{ ($patient) ? $patient->patient_name : '' }}" name="patient_name" class="form-control form-control-md" placeholder="Customer Name">
                                 @error('patient_name')
                                 <small class="text-danger">{{ $errors->first('patient_name') }}</small>
                                 @enderror
@@ -93,6 +93,10 @@
                                 @enderror
                             </div>
                             <div class="col-sm-3">
+                                <label class="form-label">GSTIN</label>
+                                <input type="text" name="gstin" class="form-control form-control-md" placeholder="GSTIN">
+                            </div>
+                            <div class="col-sm-3">
                                 <label class="form-label req">Order Status</label>
                                 {!! Form::select('order_status', $status->pluck('name', 'id')->all(),  1, ['class' => 'form-control form-control-sm select2 border-0', 'placeholder' => 'OrderStatus']) !!}
                                 @error('order_status')
@@ -126,14 +130,14 @@
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Axis" name="axis[]" value="{{ ($spectacle) ? $spectacle->re_dist_axis : '' }}"></td>
                                             <td><input type="text" class="form-control form-control-sm border-0" placeholder="Add" name="add[]" value="{{ ($spectacle) ? $spectacle->re_dist_add : '' }}"></td>
                                             <td>
-                                                {!! Form::select('product[]', $products->whereIn('category_id', [2,3])->pluck('full_name', 'id')->all(), 0, ['class' => 'form-control form-control-sm select2 selLens', 'placeholder' => 'Select']) !!}
+                                                {!! Form::select('product[]', $products->whereIn('category_id', [2,3])->pluck('full_name', 'id')->all(), 0, ['class' => 'form-control form-control-sm select2 selLens selLensFirst', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" class="form-control form-control-sm border-0 text-end qty" name="qty[]" step='any' placeholder="0" /></td>
-                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
+                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" readonly /></td>
                                             <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" /></td>
                                             <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" /></td>
-                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
-                                            <td></td>
+                                            <td><input step='any' type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" readonly /></td>
+                                            <td><a href='javascript:void(0)' onclick="$(this).parent().parent().remove();calculateTotal();"><i class='fa fa-times text-danger'></i></a></td>
                                         </tr>
                                         <tr>
                                             <td><input type="text" name="type[]" value="LE" class="form-control form-control-sm border-0" readonly/></td>
@@ -145,11 +149,11 @@
                                                 {!! Form::select('product[]', $products->whereIn('category_id', [2,3])->pluck('full_name', 'id')->all(), 0, ['class' => 'form-control select2 selLens', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
-                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" readonly /></td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" /></td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" /></td>
-                                            <td><input type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" step='any' placeholder="0.00" /></td>
-                                            <td></td>
+                                            <td><input type="number" class="form-control form-control-sm border-0 text-end total" name="total[]" step='any' placeholder="0.00" readonly /></td>
+                                            <td><a href='javascript:void(0)' onclick="$(this).parent().parent().remove();calculateTotal();"><i class='fa fa-times text-danger'></i></a></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
@@ -163,11 +167,11 @@
                                                 {!! Form::select('product[]', $products->whereIn('category_id', [1])->pluck('full_name', 'id')->all(), 0, ['class' => 'form-control select2 selFrame', 'placeholder' => 'Select']) !!}
                                             </td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end qty" name="qty[]" placeholder="0" /></td>
-                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" /></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end price" name="price[]" placeholder="0.00" readonly /></td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end tax_per" name="tax_per[]" placeholder="0%" /></td>
                                             <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end disc_per" name="disc_per[]" placeholder="0%" /></td>
-                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" /></td>
-                                            <td></td>
+                                            <td><input type="number" step='any' class="form-control form-control-sm border-0 text-end total" name="total[]" placeholder="0.00" readonly /></td>
+                                            <td><a href='javascript:void(0)' onclick="$(this).parent().parent().remove();calculateTotal();"><i class='fa fa-times text-danger'></i></a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -245,7 +249,24 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-6 table-responsive mt-3">
+                                <table class="tblOrder table table-bordered table-sm">
+                                    <thead class="text-center"><tr><th>Eye</th><th>PD</th><th>FH</th><th>PRISM</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>RE</td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="re_pd" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="re_fh" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="re_prism" placeholder="0.00" /></td></tr>
+                                        <tr><td>LE</td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="le_pd" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="le_fh" placeholder="0.00" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="le_prism" placeholder="0.00" /></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-6 table-responsive mt-3">
+                                <table class="tblOrder table table-bordered table-sm">
+                                    <tbody>
+                                        <tr><td colspan="2"><input type="text" class="form-control form-control-sm border-0 text-end" name="vd" placeholder="VD" /></td><td colspan="2"><input type="text" class="form-control form-control-sm border-0 text-end" name="ipd" placeholder="IPD" /></td><td colspan="2"><input type="text" class="form-control form-control-sm border-0 text-end" name="npd" placeholder="NPD" /></td></tr>
+                                        <tr><td><input type="text" class="form-control form-control-sm border-0 text-end" name="dbl" placeholder="DBL" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="ed" placeholder="ED" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="size_a" placeholder="Size A" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="size_b" placeholder="Size B" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="pa" placeholder="PA" /></td><td><input type="text" class="form-control form-control-sm border-0 text-end" name="wa" placeholder="WA" /></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 mt-3">
                                 <label class="form-label">Order Notes / Remarks</label>
                                 <textarea class="form-control" name="notes" placeholder="Order Notes / Remarks"></textarea>
                             </div>                            

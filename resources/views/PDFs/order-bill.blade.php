@@ -122,25 +122,29 @@
         <tbody>
             @forelse($order->orderdetails as $key => $value)
             <tr>
-                <td class="text-center">{{ $value->product_type }}</td>
+                <td class="text-center">{{ ($value->product_type == 'RE' || $value->product_type == 'LE') ? $value->product_type : '' }}</td>
                 <td class="text-center">{{ $value->sph }}</td>
                 <td class="text-center">{{ $value->cyl }}</td>
                 <td class="text-center">{{ $value->axis }}</td>
                 <td class="text-center">{{ $value->addition }}</td>
-                <td class="text-center">0.00</td>
-                <td class="text-center">0.00</td>
-                <td class="text-center">0.00</td>
+                @if($value->product_type == 'RE' || $value->product_type == 'LE')
+                <td class="text-center">{{ ($key == 0) ? $order->re_pd : $order->le_pd }}</td>
+                <td class="text-center">{{ ($key == 0) ? $order->re_fh : $order->le_fh }}</td>
+                <td class="text-center">{{ ($key == 0) ? $order->re_prism : $order->le_prism }}</td>
+                @else
+                <td></td><td></td><td></td>
+                @endif
             </tr>
             @empty
             @endforelse
-            <tr><td colspan="8" class="text-center">VD:0.00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IPD:0.00 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NPD:0.00</td></tr>
+            <tr><td colspan="8" class="text-center">VD: {{ $order->vd }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IPD: {{ $order->ipd }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NPD: {{ $order->npd }}</td></tr>
             <tr><td></td>
-                <td class="text-center">DBL<br>0</td>
-                <td class="text-center">ED<br>0</td>
-                <td class="text-center">Size A<br>0</td>
-                <td class="text-center">Size B<br>0</td>
-                <td class="text-center">PA<br>0</td>
-                <td class="text-center">WA<br>0</td>
+                <td class="text-center">DBL<br>{{ $order->dbl }}</td>
+                <td class="text-center">ED<br>{{ $order->ed }}</td>
+                <td class="text-center">Size A<br>{{ $order->size_a }}</td>
+                <td class="text-center">Size B<br>{{ $order->size_b }}</td>
+                <td class="text-center">PA<br>{{ $order->pa }}</td>
+                <td class="text-center">WA<br>{{ $order->wa }}</td>
             <td></td></tr>
         </tbody>
     </table>
