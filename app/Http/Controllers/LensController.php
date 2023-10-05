@@ -104,9 +104,9 @@ class LensController extends Controller
             'type_id' => 'required',
         ]);
         try{
-            $product = checkStockExists($request);
-            if($product)
-                dd($product);
+            $products = checkStockExists($request);
+            if($products)
+                dd($products);
             else
                 $input = $request->all();
                 $input['created_by'] = $request->user()->id;

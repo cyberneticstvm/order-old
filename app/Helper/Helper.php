@@ -44,8 +44,8 @@ function checkStockExists($request){
         default:
             $axis = $axis;
     endswitch;
-    $product = Lens::whereIn('axis', $axis)->first();
-    return $product;
+    $products = Lens::whereIn('axis', $axis)->get();
+    return $products;
 }
 
 ?>
