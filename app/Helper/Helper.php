@@ -2,6 +2,7 @@
 
 use App\Models\Branch;
 use App\Models\Invoice;
+use App\Models\Lens;
 use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 
@@ -29,6 +30,22 @@ function generateInvoiceNumber($branch){
     $br = Branch::find($branch);
     $inv = Invoice::selectRaw("IFNULL(MAX(CAST(SUBSTRING_INDEX(invoice_number, '/', -1) AS SIGNED)+1), 1001) AS inv")->value('inv');
     return 'INV'.'/'.$br->branch_code.'/'.$inv;
+}
+
+function checkStockExists($request){
+    $product = []; $axis = $request->axis;
+    switch($axis):
+        case $axis <= 90:
+            $axis = [$axis, $axis+90];
+            break;
+        case $axis > 90:
+            $axis = [$axis, $axis-90];
+            break;
+        default:
+            $axis = $axis;
+    endswitch;
+    $product = Lens::whereIn('axis', $axis)->first();
+    return $product;
 }
 
 ?>

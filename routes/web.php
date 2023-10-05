@@ -8,6 +8,7 @@ use App\Http\Controllers\HelperController;
 use App\Http\Controllers\IncomeExpenseController;
 use App\Http\Controllers\IncomeExpenseHeadController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LensController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderPaymentController;
 use App\Http\Controllers\PDFController;
@@ -154,6 +155,22 @@ Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
     Route::delete('/stockout/delete/{id}', [StockTransferController::class, 'destroyd'])->name('stockout.delete');
 
     Route::get('/stockinhand', [HelperController::class, 'stockinhand'])->name('stockinhand');
-    Route::post('/stockinhand', [HelperController::class, 'fetchstockinhand'])->name('stockinhand.fetch');    
+    Route::post('/stockinhand', [HelperController::class, 'fetchstockinhand'])->name('stockinhand.fetch');
+    
+    Route::get('/stock/tracking/list', [LensController::class, 'index'])->name('stock.tracking.list');
+    Route::get('/stock/tracking/product', [LensController::class, 'create'])->name('stock.tracking.create');
+    Route::post('/stock/tracking/product', [LensController::class, 'store'])->name('stock.tracking.save');
+    Route::get('/stock/tracking/product/edit/{id}', [LensController::class, 'edit'])->name('stock.tracking.edit');
+    Route::put('/stock/tracking/product/edit/{id}', [LensController::class, 'update'])->name('stock.tracking.update');
+    Route::delete('/stock/tracking/product/delete/{id}', [LensController::class, 'destroy'])->name('stock.tracking.delete');
+
+    Route::get('/stock/tracking/material', [LensController::class, 'creatematerial'])->name('stock.tracking.create.material');
+    Route::post('/stock/tracking/material', [LensController::class, 'storematerial'])->name('stock.tracking.save.material');
+
+    Route::get('/stock/tracking/coating', [LensController::class, 'createcoating'])->name('stock.tracking.create.coating');
+    Route::post('/stock/tracking/coating', [LensController::class, 'storecoating'])->name('stock.tracking.save.coating');
+
+    Route::get('/stock/tracking/type', [LensController::class, 'createtype'])->name('stock.tracking.create.type');
+    Route::post('/stock/tracking/type', [LensController::class, 'storetype'])->name('stock.tracking.save.type');
 
 });

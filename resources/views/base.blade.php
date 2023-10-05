@@ -102,7 +102,7 @@
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-lock"></i> <span>Administration</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-briefcase"></i> <span>Administration</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
@@ -113,7 +113,7 @@
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-lock"></i> <span>Inventory</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-cubes"></i> <span>Inventory</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
@@ -126,7 +126,19 @@
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-lock"></i> <span>Extras</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-search"></i> <span>Stock Tracking</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <!-- Menu: Sub menu ul -->
+                    <ul class="sub-menu collapse" id="menu-Authentication">
+                        <li><a class="ms-link" href="/stock/tracking/material">Add Material</a></li>
+                        <li><a class="ms-link" href="/stock/tracking/coating">Add Coating</a></li>
+                        <li><a class="ms-link" href="/stock/tracking/type">Add Type</a></li>
+                        <li><a class="ms-link" href="/stock/tracking/list">Product List</a></li>
+                        <li><a class="ms-link" href="/stock/tracking/product">Add Product</a></li>
+                        <li><a class="ms-link" href="/stock/tracking/track">Track Product</a></li>
+                    </ul>
+                </li>
+                <li class="collapsed">
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-asterisk"></i> <span>Extras</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
@@ -134,7 +146,7 @@
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-lock"></i> <span>Settings</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-wrench"></i> <span>Settings</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
@@ -142,7 +154,7 @@
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-lock"></i> <span>Offers</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-gift"></i> <span>Offers</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
@@ -150,7 +162,7 @@
                     </ul>
                 </li>
                 <li class="collapsed">
-                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-lock"></i> <span>Reports</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
+                    <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-files-o"></i> <span>Reports</span> <span class="arrow fa fa-plus ms-auto text-end"></span></a>
 
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="menu-Authentication">
