@@ -105,7 +105,7 @@ class LensController extends Controller
         ]);
         try{
             $products = checkStockExists($request);
-            if($products)
+            if(!$products->isEmpty())
                 dd($products);
             else
                 $input = $request->all();
