@@ -30,7 +30,7 @@ class UserController extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])):
             $user = Auth::getProvider()->retrieveByCredentials($credentials);
             Auth::login($user, $request->get('remember'));
-            $branches = Branch::whereIn('id', $user->branches->pluck('branch_id'))->get();
+            $branches = Branch::whereIn('id', $user->branches->pluck('branch_id'))->where('id', '>', 0)->get();
             return redirect()->route('dash')->with(['branches' => $branches, 'success' => 'User signed in successfully.']);
         endif;  
         return redirect("/")->with('error', 'Login details are not valid')->withInput($request->all());
