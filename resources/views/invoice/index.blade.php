@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card mb-2">
-                <div class="card-body p-4">
+                <div class="card-body p-4 table-responsive">
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
                         <thead><tr><th>SL No</th><th>Order ID</th><th>Invoice Number</th><th>Invoice Date</th><th>Amount</th><th>Invoice</th><th>Cancel</th></tr></thead>

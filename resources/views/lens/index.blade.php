@@ -17,7 +17,7 @@
     <div class="container">        
         <div class="row g-3 clearfix">
             <div class="card mb-2">
-                <div class="card-body p-4">
+                <div class="card-body p-4 table-responsive">
                     <p class= "text-end my-3"><a href="{{ route('stock.tracking.create') }}"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
@@ -31,9 +31,9 @@
                                 <td>{{ $lens->coating->name }}</td>
                                 <td>{{ $lens->type->name }}</td>
                                 <td>{!! $lens->power() !!}</td>
+                                <td>{{ $lens->qty }}</td>
                                 <td>{{ $lens->shelf }}</td>
-                                <td>{{ $lens->box }}</td>
-                                <td>{{ $lens->qty }}</td>                                
+                                <td>{{ $lens->box }}</td>                                                                
                                 <td class="text-center"><a href="{{ route('stock.tracking.edit', $lens->id) }}"><i class="fa fa-pencil text-warning"></i></a></td>
                                 <td class="text-center">
                                     <form method="post" action="{{ route('stock.tracking.delete', $lens->id) }}">

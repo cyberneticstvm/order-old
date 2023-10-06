@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card mb-2">
-                <div class="card-body p-4">
+                <div class="card-body p-4 table-responsive">
                     <p class= "text-end my-3"><a href="/order/create/0"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">

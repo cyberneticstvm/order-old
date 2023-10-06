@@ -163,6 +163,8 @@ Route::group(['middleware' => ['web', 'auth', 'branch']], function(){
     Route::get('/stock/tracking/product/edit/{id}', [LensController::class, 'edit'])->name('stock.tracking.edit');
     Route::put('/stock/tracking/product/edit/{id}', [LensController::class, 'update'])->name('stock.tracking.update');
     Route::delete('/stock/tracking/product/delete/{id}', [LensController::class, 'destroy'])->name('stock.tracking.delete');
+    Route::get('/stock/tracking/track', [LensController::class, 'show'])->name('stock.tracking.show');
+    Route::post('/stock/tracking/track', [LensController::class, 'track'])->name('stock.tracking.track');
 
     Route::get('/stock/tracking/material', [LensController::class, 'creatematerial'])->name('stock.tracking.create.material');
     Route::post('/stock/tracking/material', [LensController::class, 'storematerial'])->name('stock.tracking.save.material');

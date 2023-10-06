@@ -17,7 +17,7 @@
     <div class="container">        
         <div class="row g-3 clearfix">
             <div class="card mb-2">
-                <div class="card-body p-4">
+                <div class="card-body p-4 table-responsive">
                     <p class= "text-end my-3"><a href="/subcategory/create/"><i class="fa fa-plus fa-lg text-success fw-bold"></i></a></p>
                     @include("sections.message")
                     <table id="dataTbl" class="table table-striped table-hover align-middle table-sm">
