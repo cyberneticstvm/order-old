@@ -61,7 +61,7 @@ class UserController extends Controller
 
     public function create(){
         $roles = Role::pluck('name', 'name')->all();
-        $branches = DB::table('branches')->pluck('name', 'id')->all();
+        $branches = DB::table('branches')->where('id', '>', 0)->pluck('name', 'id')->all();
         return view('user.create', compact('roles', 'branches'));
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
         $user = User::find(decrypt($id));
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-        $branches = DB::table('branches')->pluck('name', 'id')->all();
+        $branches = DB::table('branches')->where('id', '>', 0)->pluck('name', 'id')->all();
         $userbranches = DB::table('user_branches')->where('user_id', $id);
         return view('user.edit', compact('user', 'roles', 'userRole', 'branches', 'userbranches'));
     }
